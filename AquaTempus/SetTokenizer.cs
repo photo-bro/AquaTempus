@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
  // regex
 namespace AquaTempus
 {
-	public struct SetToken
+	public class SetToken
 	{
 		public SetTokenType Type;
 		public string Value;
@@ -20,14 +20,14 @@ namespace AquaTempus
 
 		public override string ToString ()
 		{
-			return string.Format ("Line {0}:  Token {1} : {2}", m_LineNum, Type.ToString (), Value);
+			return string.Format ("Line {0}:  Token {1} : {2}", m_LineNum, Type, Value);
 		}
 	}
 
 	public enum SetTokenType
 	{
 		WORD = 0,
-		// any string not beginning with an integer
+		// any string that is not any other token
 		INTEGER = 1,
 		// any integer
 		INTERVAL = 2,
@@ -89,6 +89,7 @@ namespace AquaTempus
 				// Loop through blocks in each line
 				foreach (string s in line.Split(new[]{' '}, StringSplitOptions.RemoveEmptyEntries)) {
 					SetToken st;
+					int temp = 0;
 					// comment reached, goto next line
 					if (s.Contains ("#"))
 						break;
@@ -98,15 +99,16 @@ namespace AquaTempus
 						st = new SetToken (SetTokenType.MULT, s, iLineCount);
 			
 					// INTEGER
-					if (int.TryParse (s))
+					else if (int.TryParse(s,out temp))
 						st = new SetToken (SetTokenType.INTEGER, s, iLineCount);
 
 					// INTERVAL
-					if (Regex.IsMatch (s, "[0-9]*[0-9]*:*[0-9][0-9]:[0-9][0-9]"))
+					else if (Regex.IsMatch (s, "[0-9]*[0-9]*:*[0-9]*[0-9]:[0-9][0-9]"))
 						st = new SetToken (SetTokenType.INTERVAL, s, iLineCount);
 
 					// WORD, assume anything else is a word
-					st = new SetToken (SetTokenType.WORD, s, iLineCount);
+					else
+						st = new SetToken (SetTokenType.WORD, s, iLineCount);
 
 					m_ltTokens.Add (st);
 				} // foreach block
@@ -129,7 +131,9 @@ namespace AquaTempus
 		/// <returns>A <see cref="System.String"/> that represents the current <see cref="AquaTempus.SetTokenizer"/>.</returns>
 		public override string ToString ()
 		{
-			return string.Format ("{0}", m_ltTokens.ForEach (t => t.ToString () + Environment.NewLine));
+			string s = "";
+			m_ltTokens.ForEach ((SetToken t) => s += t.ToString () + Environment.NewLine);
+			return s;
 		}
 	}
 }

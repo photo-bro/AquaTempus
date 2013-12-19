@@ -26,8 +26,22 @@ namespace AquaTempus
 			} // get
 		}
 
+		FileManager m_FM = FileManager.Instance;
+		SetTokenizer m_ST = SetTokenizer.Instance;
 
 
+		public void OpenFile(string name, string path){
+			m_FM.OpenFile (name, path);
+		}
+
+		public void CloseFile(){
+			m_FM.CloseFile ();
+		}
+
+		public string GetTokenList(){
+			m_ST.TokenizeString (m_FM.CurrentFileToString ());
+			return m_ST.ToString ();
+		}
 
 
 

@@ -1,0 +1,230 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2A5661AD0000000000000000 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DE76E4B0000000000000000 /* Cocoa.framework */; };
+		2A237E910000000000000000 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DB48B2F0000000000000000 /* Foundation.framework */; };
+		276476280000000000000000 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AF582C60000000000000000 /* MainMenu.xib */; };
+		3AB5E6E30000000000000000 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E46F3810000000000000000 /* MainWindow.xib */; };
+		E07579E00000000000000000 /* AppDelegate.h in Sources */ = {isa = PBXBuildFile; fileRef = 1198643C0000000000000000 /* AppDelegate.h */; };
+		2C0BEE330000000000000000 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9CFAD10000000000000000 /* AppDelegate.m */; };
+		2A29F6560000000000000000 /* MainWindow.h in Sources */ = {isa = PBXBuildFile; fileRef = 2DBB02F40000000000000000 /* MainWindow.h */; };
+		24B6F1DB0000000000000000 /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2847FE790000000000000000 /* MainWindow.m */; };
+		2F3734990000000000000000 /* MainWindowController.h in Sources */ = {isa = PBXBuildFile; fileRef = 32C841370000000000000000 /* MainWindowController.h */; };
+		1D2F12670000000000000000 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C01F050000000000000000 /* MainWindowController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3A6490210000000000000000 /* AquaTempus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "AquaTempus.app"; path = "AquaTempus.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DE76E4B0000000000000000 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Cocoa.framework"; path = "System/Library/Frameworks/Cocoa.framework"; sourceTree = SDKROOT; };
+		2DB48B2F0000000000000000 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; };
+		2AF582C60000000000000000 /* MainMenu.xib */ = {isa = PBXFileReference; name = "MainMenu.xib"; path = "MacGUI/MainMenu.xib"; sourceTree = "<group>"; };
+		3E46F3810000000000000000 /* MainWindow.xib */ = {isa = PBXFileReference; name = "MainWindow.xib"; path = "MacGUI/MainWindow.xib"; sourceTree = "<group>"; };
+		1198643C0000000000000000 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppDelegate.h"; path = "AppDelegate.h"; sourceTree = "<group>"; };
+		2F9CFAD10000000000000000 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate.m"; path = "AppDelegate.m"; sourceTree = "<group>"; };
+		2DBB02F40000000000000000 /* MainWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MainWindow.h"; path = "MainWindow.h"; sourceTree = "<group>"; };
+		2847FE790000000000000000 /* MainWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "MainWindow.m"; path = "MainWindow.m"; sourceTree = "<group>"; };
+		32C841370000000000000000 /* MainWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MainWindowController.h"; path = "MainWindowController.h"; sourceTree = "<group>"; };
+		20C01F050000000000000000 /* MainWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "MainWindowController.m"; path = "MainWindowController.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		138ECB8F0000000000000000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A5661AD0000000000000000 /* Cocoa.framework in Frameworks */,
+				2A237E910000000000000000 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		33A83D1D0000000000000000 = {
+			isa = PBXGroup;
+			children = (
+				1E41F1690000000000000000 /* AquaTempus */,
+				1EC6F9500000000000000000 /* Frameworks */,
+				28F517430000000000000000 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		28F517430000000000000000 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3A6490210000000000000000 /* AquaTempus.app */,
+			);
+			name = "Products";
+			sourceTree = "<group>";
+		};
+		1EC6F9500000000000000000 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2DB48B2F0000000000000000 /* Foundation.framework */,
+				2DE76E4B0000000000000000 /* Cocoa.framework */,
+			);
+			name = "Frameworks";
+			sourceTree = "<group>";
+		};
+		1E41F1690000000000000000 /* AquaTempus */ = {
+			isa = PBXGroup;
+			children = (
+				1198643C0000000000000000 /* AppDelegate.h */,
+				2DBB02F40000000000000000 /* MainWindow.h */,
+				32C841370000000000000000 /* MainWindowController.h */,
+				77DE7B600000000000000000 /* MacGUI */,
+				233AC0360000000000000000 /* Supporting Files */,
+			);
+			name = "AquaTempus";
+			sourceTree = "<group>";
+		};
+		77DE7B600000000000000000 /* MacGUI */ = {
+			isa = PBXGroup;
+			children = (
+				2AF582C60000000000000000 /* MainMenu.xib */,
+				3E46F3810000000000000000 /* MainWindow.xib */,
+			);
+			name = "MacGUI";
+			sourceTree = "<group>";
+		};
+		233AC0360000000000000000 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2F9CFAD10000000000000000 /* AppDelegate.m */,
+				2847FE790000000000000000 /* MainWindow.m */,
+				20C01F050000000000000000 /* MainWindowController.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2F18C0F30000000000000000 /* AquaTempus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FB16A470000000000000000 /* Build configuration list for PBXNativeTarget "AquaTempus" */;
+			buildPhases = (
+				3E287FDB0000000000000000 /* Sources */,
+				138ECB8F0000000000000000 /* Frameworks */,
+				27131F660000000000000000 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AquaTempus";
+			productName = "AquaTempus";
+			productReference = 3A6490210000000000000000 /* AquaTempus.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		24659B190000000000000000 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 216D37CF0000000000000000 /* Build configuration list for PBXProject "AquaTempus" */;
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 33A83D1D0000000000000000;
+			productRefGroup = 28F517430000000000000000 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2F18C0F30000000000000000 /* AquaTempus */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		27131F660000000000000000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				276476280000000000000000 /* MainMenu.xib in Resources */,
+				3AB5E6E30000000000000000 /* MainWindow.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3E287FDB0000000000000000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E07579E00000000000000000 /* AppDelegate.h in Sources */,
+				2C0BEE330000000000000000 /* AppDelegate.m in Sources */,
+				2A29F6560000000000000000 /* MainWindow.h in Sources */,
+				24B6F1DB0000000000000000 /* MainWindow.m in Sources */,
+				2F3734990000000000000000 /* MainWindowController.h in Sources */,
+				1D2F12670000000000000000 /* MainWindowController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		22E969740000000000000000 /* MonoMac */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				SDKROOT = macosx;
+			};
+			name = MonoMac;
+		};
+		16BA11F50000000000000000 /* MonoMac */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				PRODUCT_NAME = "AquaTempus";
+				WRAPPER_EXTENSION = app;
+			};
+			name = MonoMac;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		216D37CF0000000000000000 /* Build configuration list for PBXProject "AquaTempus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22E969740000000000000000 /* MonoMac */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = MonoMac;
+		};
+		2FB16A470000000000000000 /* Build configuration list for PBXNativeTarget "AquaTempus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16BA11F50000000000000000 /* MonoMac */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = MonoMac;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 24659B190000000000000000 /* Project object */;
+}

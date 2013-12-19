@@ -24,7 +24,7 @@ namespace AquaTempus
 			} // get
 		} // Instance
 
-		private FilerFacade.Filer m_Filer = FilerFacade.CurrentPlatformFiler();
+		private Filer m_Filer = Filer.Instance;
 
 
 		private string m_sProgramName = "AquaTempus";
@@ -62,9 +62,14 @@ namespace AquaTempus
 			return m_Filer.CloseFile ();
 		}
 
+		public string CurrentFileToString(){
+			return m_Filer.FileToString ();
+		}
+
 		public bool CreateFile (string path, string name, string content)
 		{
-			return m_Filer.FileToString (path, name, content);
+			return false;
+			//return m_Filer.FileToString (path, name, content);
 		}
 	}
 	// FileManager
