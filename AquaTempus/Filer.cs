@@ -8,6 +8,10 @@ namespace AquaTempus
 		OperatingSystem m_OS = Environment.OSVersion;
 		PlatformID m_pID = m_OS.Platform;
 
+		/// <summary>
+		/// Returns the proper Filer instance depending on platform
+		/// </summary>
+		/// <returns>The platform filer.</returns>
 		public static Filer CurrentPlatformFiler ()
 		{
 			// Credit:
@@ -26,16 +30,19 @@ namespace AquaTempus
 			} // switch
 		}
 
+
 		public abstract class Filer
 		{
 			///// Singleton Stuff
 			private static Filer c_fInstance;
 			private static object c_fLock = typeof(Filer);
 
-			private Filer ()
-			{
-			}
+			private Filer (){}
 
+			/// <summary>
+			/// Return static singleton instance of class
+			/// </summary>
+			/// <value>The instance.</value>
 			public static Filer Instance {
 				get {
 					lock (c_fLock) {
@@ -46,17 +53,44 @@ namespace AquaTempus
 				} // get
 			}
 
+
 			protected StreamWriter m_sw;
 			protected StreamReader m_sr;
 
+			/// <summary>
+			/// Open file through internal StreamReader object
+			/// </summary>
+			/// <returns><c>true</c>, if file was opened, <c>false</c> otherwise.</returns>
+			/// <param name="name">Name.</param>
+			/// <param name="path">Path.</param>
 			public abstract bool OpenFile (string name, string path);
 
+			/// <summary>
+			/// Close file in internal StreamReader object
+			/// </summary>
+			/// <returns><c>true</c>, if file was closed, <c>false</c> otherwise.</returns>
 			public abstract bool CloseFile ();
 
+			/// <summary>
+			/// Create a new text based file 
+			/// </summary>
+			/// <returns><c>true</c>, if file was created, <c>false</c> otherwise.</returns>
+			/// <param name="name">Name.</param>
+			/// <param name="path">Path.</param>
+			/// <param name="content">Content.</param>
 			public abstract bool CreateFile (string name, string path, string content);
 
+			/// <summary>
+			/// Return open file's content as string
+			/// </summary>
+			/// <returns>The to string.</returns>
 			public abstract string FileToString ();
 		}
+
+		/// ********************
+		/// Platform implementations of filer
+		/// See abstract class for function descriptions
+		/// ********************
 
 		public class OSX_Filer : Filer
 		{
