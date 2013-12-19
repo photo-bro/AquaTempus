@@ -74,7 +74,7 @@ namespace AquaTempus
 			m_sRawFile = setfile;
 
 			// Split raw file into "words" or "blocks"
-			m_lsLines.AddRange (m_sRawFile.Split (new [] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
+			m_lsLines.AddRange (m_sRawFile.Split (new [] { Environment.NewLine },StringSplitOptions.None));
 
 			int iLineCount = -1;
 
@@ -82,6 +82,9 @@ namespace AquaTempus
 			foreach (string line in m_lsLines) {
 				iLineCount++;
 
+				// skip line if empty
+				if (line.Length == 0)
+					continue;
 				// skip comment lines
 				if (line [0] == '#')
 					continue;
