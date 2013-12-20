@@ -62,8 +62,9 @@ namespace AquaTempus
 			m_ST.TokenizeString (m_FM.CurrentFileToString ());
 			m_SP.ParseToSetList (m_ST.TokenList ());
 			// Create the table
-			List<List<string>> SetTable = new List<List<string>> (m_SP.CurrentSetList.Count);
-			SetTable.ForEach ((List<string> ls) => ls = new List<string> ());
+			List<List<string>> SetTable = new List<List<string>> ();
+			for (int j = 0; j < 6; ++j)
+				SetTable.Add (new List<string> ());
 
 			int i = 0;
 			foreach (Set st in m_SP.CurrentSetList) {
