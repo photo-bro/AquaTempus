@@ -61,7 +61,7 @@ namespace AquaTempus
 			string interval, stroke, comment = "";
 		
 			m_curToken = NextToken ();
-			for (; m_curToken.Type != SetTokenType.EOF; m_curToken = NextToken ()) {
+			while ( m_curToken.Type != SetTokenType.EOF) {
 			
 				number = int.Parse (m_curToken.Value);
 				Match (SetTokenType.INTEGER);

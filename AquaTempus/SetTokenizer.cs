@@ -100,7 +100,7 @@ namespace AquaTempus
 						break;
 
 					// MULT
-					if (s.ToString () [0] == 'X' && s.Length == 1)
+					if (s.ToString ().ToUpper() [0] == 'X' && s.Length == 1)
 						st = new SetToken (SetTokenType.MULT, s, iLineCount);
 			
 					// INTEGER
