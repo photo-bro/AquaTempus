@@ -47,36 +47,28 @@ namespace AquaTempus
 				// Open file prompt
 				// Credit user: rjm
 				// http://forums.xamarin.com/discussion/3876/regression-in-nsopenpanel
-				NSOpenPanel openPanel = new NSOpenPanel();
-				openPanel.BeginSheet(this, ((int result) => {
-					try{
-						if (openPanel.Url != null){
+				NSOpenPanel openPanel = new NSOpenPanel ();
+				openPanel.BeginSheet (this, ((int result) => {
+					try {
+						if (openPanel.Url != null) {
 							var urlString = openPanel.Url.Path;
 
-							if(!string.IsNullOrEmpty(urlString))
-							{
-								m_at.OpenFile(System.IO.Path.GetFileName(urlString),
-									System.IO.Path.GetDirectoryName(urlString));
+							if (!string.IsNullOrEmpty (urlString)) {
+								m_at.OpenFile (System.IO.Path.GetFileName (urlString),
+									System.IO.Path.GetDirectoryName (urlString));
 								tbConsole.Value = urlString + " Opened" + Environment.NewLine;
 
-								tbConsole.Value += m_at.GetTokenList();
+								tbConsole.Value += m_at.GetTokenList ();
 
 							}
 						}
-					}
-					finally
-					{
-						openPanel.Dispose();
+					} finally {
+						openPanel.Dispose ();
 					}
 				}));
 
 			};
 		}
-
-
-
-
-
 	}
 }
 

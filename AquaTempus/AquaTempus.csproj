@@ -87,6 +87,9 @@
     <Compile Include="FileManager.cs" />
     <Compile Include="SetTokenizer.cs" />
     <Compile Include="AT_Facade.cs" />
+    <Compile Include="SetParser.cs" />
+    <Compile Include="Singleton.cs" />
+    <Compile Include="SetList.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MacGUI\MainMenu.xib" />

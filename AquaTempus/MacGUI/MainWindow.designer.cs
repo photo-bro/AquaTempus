@@ -13,6 +13,9 @@ namespace AquaTempus
 	partial class MainWindow
 	{
 		[Outlet]
+		MonoMac.AppKit.NSArrayController arrcSetList { get; set; }
+
+		[Outlet]
 		MonoMac.AppKit.NSButton btnNext { get; set; }
 
 		[Outlet]
@@ -47,22 +50,60 @@ namespace AquaTempus
 
 		[Outlet]
 		MonoMac.AppKit.NSTableView tbvSetList { get; set; }
-		
+
+		[Outlet]
+		MonoMac.AppKit.NSTextField txfComment { get; set; }
+
+		[Outlet]
+		MonoMac.AppKit.NSTextField txfCount { get; set; }
+
+		[Outlet]
+		MonoMac.AppKit.NSTextField txfDistance { get; set; }
+
+		[Outlet]
+		MonoMac.AppKit.NSTextField txfInterval { get; set; }
+
+		[Outlet]
+		MonoMac.AppKit.NSTextField txfNumber { get; set; }
+
+		[Outlet]
+		MonoMac.AppKit.NSTextField txfStroke { get; set; }
+
 		void ReleaseDesignerOutlets ()
 		{
-			if (btnStart != null) {
-				btnStart.Dispose ();
-				btnStart = null;
+			if (arrcSetList != null) {
+				arrcSetList.Dispose ();
+				arrcSetList = null;
 			}
 
-			if (btnPause != null) {
-				btnPause.Dispose ();
-				btnPause = null;
+			if (txfCount != null) {
+				txfCount.Dispose ();
+				txfCount = null;
 			}
 
-			if (btnStop != null) {
-				btnStop.Dispose ();
-				btnStop = null;
+			if (txfNumber != null) {
+				txfNumber.Dispose ();
+				txfNumber = null;
+			}
+
+			if (txfDistance != null) {
+				txfDistance.Dispose ();
+				txfDistance = null;
+			}
+
+			if (txfInterval != null) {
+				txfInterval.Dispose ();
+				txfInterval = null;
+			}
+
+			if (txfStroke != null) {
+				txfStroke.Dispose ();
+				txfStroke = null;
+			}
+
+			if (txfComment != null) {
+				txfComment.Dispose ();
+				txfComment = null;
 			}
 
 			if (btnNext != null) {
@@ -70,24 +111,29 @@ namespace AquaTempus
 				btnNext = null;
 			}
 
+			if (btnPause != null) {
+				btnPause.Dispose ();
+				btnPause = null;
+			}
+
 			if (btnPrev != null) {
 				btnPrev.Dispose ();
 				btnPrev = null;
 			}
 
+			if (btnStart != null) {
+				btnStart.Dispose ();
+				btnStart = null;
+			}
+
+			if (btnStop != null) {
+				btnStop.Dispose ();
+				btnStop = null;
+			}
+
 			if (lbDistRemain != null) {
 				lbDistRemain.Dispose ();
 				lbDistRemain = null;
-			}
-
-			if (lbTimeRemain != null) {
-				lbTimeRemain.Dispose ();
-				lbTimeRemain = null;
-			}
-
-			if (lbStroke != null) {
-				lbStroke.Dispose ();
-				lbStroke = null;
 			}
 
 			if (lbNote != null) {
@@ -100,14 +146,24 @@ namespace AquaTempus
 				lbStats = null;
 			}
 
-			if (tbvSetList != null) {
-				tbvSetList.Dispose ();
-				tbvSetList = null;
+			if (lbStroke != null) {
+				lbStroke.Dispose ();
+				lbStroke = null;
+			}
+
+			if (lbTimeRemain != null) {
+				lbTimeRemain.Dispose ();
+				lbTimeRemain = null;
 			}
 
 			if (tbConsole != null) {
 				tbConsole.Dispose ();
 				tbConsole = null;
+			}
+
+			if (tbvSetList != null) {
+				tbvSetList.Dispose ();
+				tbvSetList = null;
 			}
 		}
 	}
@@ -115,7 +171,6 @@ namespace AquaTempus
 	[Register ("MainWindowController")]
 	partial class MainWindowController
 	{
-		
 		void ReleaseDesignerOutlets ()
 		{
 		}

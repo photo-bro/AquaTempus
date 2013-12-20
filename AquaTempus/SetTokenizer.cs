@@ -2,25 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
- // regex
+// regex
 namespace AquaTempus
 {
 	public class SetToken
 	{
 		public SetTokenType Type;
 		public string Value;
-		private int m_LineNum;
+		public int LineNumber;
 
 		public SetToken (SetTokenType type, string tokvalue, int linenum)
 		{
 			Type = type;
 			Value = tokvalue;
-			m_LineNum = linenum;
+			LineNumber = linenum;
 		}
 
 		public override string ToString ()
 		{
-			return string.Format ("Line {0}:  Token {1} : {2}", m_LineNum, Type, Value);
+			return string.Format ("Line {0}:  Token {1} : {2}", LineNumber, Type, Value);
 		}
 	}
 
@@ -32,8 +32,10 @@ namespace AquaTempus
 		// any integer
 		INTERVAL = 2,
 		// any integer followed by a colon and another integer 00:00
-		MULT = 3
+		MULT = 3,
 		// X or x
+		EOF = 4
+		// EndOfFile
 	}
 
 	public class SetTokenizer
@@ -74,7 +76,7 @@ namespace AquaTempus
 			m_sRawFile = setfile;
 
 			// Split raw file into "words" or "blocks"
-			m_lsLines.AddRange (m_sRawFile.Split (new [] { Environment.NewLine },StringSplitOptions.None));
+			m_lsLines.AddRange (m_sRawFile.Split (new [] { Environment.NewLine }, StringSplitOptions.None));
 
 			int iLineCount = -1;
 
@@ -102,7 +104,7 @@ namespace AquaTempus
 						st = new SetToken (SetTokenType.MULT, s, iLineCount);
 			
 					// INTEGER
-					else if (int.TryParse(s,out temp))
+					else if (int.TryParse (s, out temp))
 						st = new SetToken (SetTokenType.INTEGER, s, iLineCount);
 
 					// INTERVAL
@@ -116,7 +118,7 @@ namespace AquaTempus
 					m_ltTokens.Add (st);
 				} // foreach block
 			} // foreach line
-
+			m_ltTokens.Add (new SetToken (SetTokenType.EOF, "EOF", iLineCount));
 		}
 
 		/// <summary>

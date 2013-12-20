@@ -10,6 +10,7 @@ namespace AquaTempus
 	{
 		MainWindowController mainWindowController;
 
+
 		public AppDelegate ()
 		{
 		}
@@ -18,6 +19,8 @@ namespace AquaTempus
 		{
 			mainWindowController = new MainWindowController ();
 			mainWindowController.Window.MakeKeyAndOrderFront (this);
+
+
 		}
 	}
 }

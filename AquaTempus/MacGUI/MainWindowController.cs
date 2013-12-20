@@ -40,9 +40,12 @@ namespace AquaTempus
 		//strongly typed window accessor
 		public new MainWindow Window {
 			get {
-				return (MainWindow)base.Window;
+				return (MainWindow) base.Window;
 			}
 		}
+
+
+
 	}
 }
 
