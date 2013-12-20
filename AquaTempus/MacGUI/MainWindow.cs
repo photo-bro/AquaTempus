@@ -32,19 +32,21 @@ namespace AquaTempus
 
 		#endregion
 
+
+		#region WindowEvents
+
 		AT_Facade m_at = AT_Facade.Instance;
 
 		public override void AwakeFromNib ()
 		{
-			base.AwakeFromNib ();
 
+			base.AwakeFromNib ();
 
 			//tbvSetList.DataSource = new TableViewHandler (m_at.SetListTable());
 
 
 			// Start button
 			btnStart.Activated += (object sender, EventArgs e) => {
-
 				// Open file prompt
 				// Credit user: rjm
 				// http://forums.xamarin.com/discussion/3876/regression-in-nsopenpanel
@@ -70,6 +72,8 @@ namespace AquaTempus
 
 			};
 		}
+
+		#endregion
 	}
 }
 

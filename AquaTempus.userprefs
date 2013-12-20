@@ -1,12 +1,12 @@
-﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="12/19/2013 10:57:39 PM">
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="12/20/2013 5:38:30 AM">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="AquaTempus/MacGUI/MainWindowController.cs">
     <Files>
-      <File FileName="AquaTempus/MacGUI/MainWindow.cs" Line="42" Column="6" />
-      <File FileName="AquaTempus/MacGUI/MainWindowController.cs" Line="35" Column="3" />
-      <File FileName="AquaTempus/AppDelegate.cs" Line="21" Column="1" />
-      <File FileName="AquaTempus/MacGUI/TableViewHandler.cs" Line="39" Column="15" />
-      <File FileName="AquaTempus/Main.cs" Line="14" Column="1" />
+      <File FileName="AquaTempus/MacGUI/MainWindow.cs" Line="42" Column="4" />
+      <File FileName="AquaTempus/MacGUI/MainWindowController.cs" Line="43" Column="1" />
+      <File FileName="AquaTempus/AppDelegate.cs" Line="1" Column="1" />
+      <File FileName="AquaTempus/MacGUI/TableViewHandler.cs" Line="1" Column="1" />
+      <File FileName="AquaTempus/Main.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

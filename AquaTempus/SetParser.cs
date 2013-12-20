@@ -3,8 +3,31 @@ using System.Collections.Generic;
 
 namespace AquaTempus
 {
-	public class SetParser : Singleton<SetParser>
+	public class SetParser //: Singleton<this>
 	{
+		///// Singleton Stuff
+		private static SetParser c_spInstance;
+		private static object c_spLock = typeof(SetParser);
+
+		private SetParser ()
+		{
+		}
+
+		/// <summary>
+		/// Return static singleton instance of class
+		/// </summary>
+		/// <value>The instance.</value>
+		public static SetParser Instance {
+			get {
+				lock (c_spLock) {
+					if (c_spInstance == null)
+						c_spInstance = new SetParser ();
+					return c_spInstance;
+				} // lock
+			} // get
+		}
+
+
 		LinkedList<Set> m_llSetList;
 		SetToken m_curToken;
 		List<SetToken> m_Tokens;
