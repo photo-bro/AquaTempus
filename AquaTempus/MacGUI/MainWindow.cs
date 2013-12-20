@@ -42,10 +42,12 @@ namespace AquaTempus
 
 			base.AwakeFromNib ();
 
-			//tbvSetList.DataSource = new TableViewHandler (m_at.SetListTable());
 
 
-			// Start button
+
+			/////
+			/// Start Button
+			/////
 			btnStart.Activated += (object sender, EventArgs e) => {
 				// Open file prompt
 				// Credit user: rjm
@@ -71,6 +73,21 @@ namespace AquaTempus
 				}));
 
 			};
+
+			/////
+			/// Pause Button
+			/////
+			btnPause.Activated += (object sender, EventArgs e) => {
+				m_at.OpenFile();
+
+				tbvSetList.DataSource = new TableViewHandler (m_at.SetListTable ());
+
+			};
+
+
+
+
+
 		}
 
 		#endregion
