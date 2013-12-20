@@ -1,16 +1,27 @@
 ﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="12/20/2013 5:38:30 AM">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AquaTempus/MacGUI/MainWindowController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AquaTempus/AT_Facade.cs">
     <Files>
-      <File FileName="AquaTempus/MacGUI/MainWindow.cs" Line="42" Column="4" />
-      <File FileName="AquaTempus/MacGUI/MainWindowController.cs" Line="43" Column="1" />
-      <File FileName="AquaTempus/AppDelegate.cs" Line="1" Column="1" />
-      <File FileName="AquaTempus/MacGUI/TableViewHandler.cs" Line="1" Column="1" />
-      <File FileName="AquaTempus/Main.cs" Line="1" Column="1" />
+      <File FileName="AquaTempus/MacGUI/MainWindow.cs" Line="56" Column="4" />
+      <File FileName="AquaTempus/SetParser.cs" Line="66" Column="5" />
+      <File FileName="AquaTempus/SetTokenizer.cs" Line="115" Column="10" />
+      <File FileName="AquaTempus/FileManager.cs" Line="67" Column="1" />
+      <File FileName="AquaTempus/AT_Facade.cs" Line="79" Column="1" />
+      <File FileName="AquaTempus/MacGUI/TableViewHandler.cs" Line="46" Column="11" />
+      <File FileName="AquaTempus/Filer.cs" Line="80" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint hitAction="PrintExpression" traceExpression="{m_curToken}" file="/Users/jharm/Projects/AquaTempus/AquaTempus/SetParser.cs" line="64" column="1" />
+      <Breakpoint file="/Users/jharm/Projects/AquaTempus/AquaTempus/MacGUI/TableViewHandler.cs" line="23" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="AquaTempus/SetTokenizer.cs" line="103" offsetX="657" offsetY="1480" expression="s" liveUpdate="False" />
+    <Watch file="AquaTempus/SetParser.cs" line="64" offsetX="768" offsetY="1176" expression="m_curToken" liveUpdate="True" />
+    <Watch file="AquaTempus/AT_Facade.cs" line="70" offsetX="323" offsetY="922" expression="m_SP.CurrentSetList" liveUpdate="False" />
+    <Watch file="AquaTempus/MacGUI/TableViewHandler.cs" line="65" offsetX="704" offsetY="869" expression="m_tableData" liveUpdate="False" />
+    <Watch file="AquaTempus/AT_Facade.cs" line="79" offsetX="627" offsetY="892" expression="SetTable" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

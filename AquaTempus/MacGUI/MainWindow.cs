@@ -43,6 +43,16 @@ namespace AquaTempus
 			base.AwakeFromNib ();
 
 
+			/////
+			/// Pause Button
+			/////
+			btnPause.Activated += (object sender, EventArgs e) => {
+				lbStroke.StringValue = "btnPause.Activated";
+				m_at.OpenFile();
+
+				tbvSetList.DataSource = new TableViewHandler (m_at.SetListTable ());
+
+			};
 
 
 			/////
@@ -74,15 +84,6 @@ namespace AquaTempus
 
 			};
 
-			/////
-			/// Pause Button
-			/////
-			btnPause.Activated += (object sender, EventArgs e) => {
-				m_at.OpenFile();
-
-				tbvSetList.DataSource = new TableViewHandler (m_at.SetListTable ());
-
-			};
 
 
 

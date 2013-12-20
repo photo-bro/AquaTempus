@@ -25,6 +25,16 @@ namespace AquaTempus
 			return m_tableData.Count;
 		}
 
+		public int numberOfRowsInTableView (NSTableView tableView)
+		{
+			return GetRowCount (tableView);
+		}
+
+		public NSObject objectValueForTableColumn (NSTableView table, NSTableColumn col, int row)
+		{
+			return GetObjectValue (table, col, row);
+		}
+
 		public override NSObject GetObjectValue (NSTableView table, NSTableColumn col, int row)
 		{
 			int column;
@@ -52,7 +62,10 @@ namespace AquaTempus
 			default:
 				break;
 			}
-			return new NSString (m_tableData [column] [row]);
+			if (row + 1 > m_tableData [column].Count)
+				return new NSString ("empty");
+			else
+				return new NSString (m_tableData [column] [row]);
 		}
 	}
 }
