@@ -58,11 +58,12 @@ namespace AquaTempus
 		private void MainParse ()
 		{
 			int number, distance;
-			string interval, stroke, comment = "";
+			string interval, stroke, comment;
 		
 			m_curToken = NextToken ();
-			while ( m_curToken.Type != SetTokenType.EOF) {
-			
+			while ( m_curToken != null && m_curToken.Type != SetTokenType.EOF) {
+				comment = ""; // reset comment
+
 				number = int.Parse (m_curToken.Value);
 				Match (SetTokenType.INTEGER);
 
@@ -81,7 +82,7 @@ namespace AquaTempus
 				if (m_curToken.Type == SetTokenType.WORD) {
 					// Comments
 					int curLine = m_curToken.LineNumber;
-					for (; m_curToken.LineNumber != curLine + 1; Match (SetTokenType.WORD))
+					for (; m_curToken != null && m_curToken.LineNumber != curLine + 1; Match (SetTokenType.WORD))
 						comment += m_curToken.Value + " ";
 				} // if
 				m_llSetList.AddLast (new Set (number, distance, stroke, comment, interval));
