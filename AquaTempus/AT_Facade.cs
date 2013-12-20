@@ -33,9 +33,19 @@ namespace AquaTempus
 
 		public void OpenFile (string name, string path)
 		{
+			m_FM.LastFileName = name;
+			m_FM.LastFilePath = path;
 			m_FM.OpenFile (name, path);
 		}
 
+		public void OpenFile ()
+		{
+			m_FM.OpenFile (m_FM.LastFileName, m_FM.LastFilePath);
+		}
+
+		/// <summary>
+		/// Open last file
+		/// </summary>
 		public void CloseFile ()
 		{
 			m_FM.CloseFile ();
