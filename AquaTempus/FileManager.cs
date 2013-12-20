@@ -30,8 +30,8 @@ namespace AquaTempus
 		private string m_sProgramName = "AquaTempus";
 		private string m_sProgramVer = ".01";
 
-		private string m_sLastFileName;
-		private string m_sLastFilePath;
+		private string m_sLastFileName = "TestSet.txt";
+		private string m_sLastFilePath = "//Users//jharm//Desktop";
 
 
 		public string LastFileName {
