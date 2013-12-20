@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace AquaTempus
 {
@@ -28,25 +29,44 @@ namespace AquaTempus
 
 		FileManager m_FM = FileManager.Instance;
 		SetTokenizer m_ST = SetTokenizer.Instance;
+		SetParser m_SP = SetParser.Instance;
 
-
-		public void OpenFile(string name, string path){
+		public void OpenFile (string name, string path)
+		{
 			m_FM.OpenFile (name, path);
 		}
 
-		public void CloseFile(){
+		public void CloseFile ()
+		{
 			m_FM.CloseFile ();
 		}
 
-		public string GetTokenList(){
+		public string GetTokenList ()
+		{
 			m_ST.TokenizeString (m_FM.CurrentFileToString ());
 			return m_ST.ToString ();
 		}
 
+		public List<List<string>> SetListTable ()
+		{
+			m_ST.TokenizeString (m_FM.CurrentFileToString ());
+			m_SP.ParseToSetList (m_ST.TokenList ());
+			// Create the table
+			List<List<string>> SetTable = new List<List<string>> (m_SP.CurrentSetList.Count);
+			SetTable.ForEach ((List<string> ls) => ls = new List<string> ());
 
-
-
-
+			int i = 0;
+			foreach (Set st in m_SP.CurrentSetList) {
+				SetTable [0].Add (i.ToString ());			
+				SetTable [1].Add (st.Number.ToString ());	
+				SetTable [2].Add (st.Distance.ToString ());	
+				SetTable [3].Add (st.Interval);	
+				SetTable [4].Add (st.Stroke);	
+				SetTable [5].Add (st.Comment);	
+				++i;
+			}
+			return SetTable;
+		}
 	}
 }
 

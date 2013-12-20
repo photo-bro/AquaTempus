@@ -37,6 +37,11 @@ namespace AquaTempus
 		public override void AwakeFromNib ()
 		{
 			base.AwakeFromNib ();
+
+
+			//tbvSetList.DataSource = new TableViewHandler (m_at.SetListTable());
+
+
 			// Start button
 			btnStart.Activated += (object sender, EventArgs e) => {
 

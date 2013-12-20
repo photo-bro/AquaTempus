@@ -6,7 +6,6 @@ namespace AquaTempus
 	public class SetParser : Singleton<SetParser>
 	{
 		LinkedList<Set> m_llSetList;
-		LinkedListNode<Set> m_llnCur;
 		SetToken m_curToken;
 		List<SetToken> m_Tokens;
 		int m_iTP = 0;
@@ -62,6 +61,7 @@ namespace AquaTempus
 					for (; m_curToken.LineNumber != curLine + 1; Match (SetTokenType.WORD))
 						comment += m_curToken.Value + " ";
 				} // if
+				m_llSetList.AddLast (new Set (number, distance, stroke, comment, interval));
 			} // main loop
 		}
 
