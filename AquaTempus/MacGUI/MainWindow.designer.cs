@@ -13,9 +13,6 @@ namespace AquaTempus
 	partial class MainWindow
 	{
 		[Outlet]
-		MonoMac.AppKit.NSArrayController arrcSetList { get; set; }
-
-		[Outlet]
 		MonoMac.AppKit.NSButton btnNext { get; set; }
 
 		[Outlet]
@@ -50,62 +47,9 @@ namespace AquaTempus
 
 		[Outlet]
 		MonoMac.AppKit.NSTableView tbvSetList { get; set; }
-
-		[Outlet]
-		MonoMac.AppKit.NSTextField txfComment { get; set; }
-
-		[Outlet]
-		MonoMac.AppKit.NSTextField txfCount { get; set; }
-
-		[Outlet]
-		MonoMac.AppKit.NSTextField txfDistance { get; set; }
-
-		[Outlet]
-		MonoMac.AppKit.NSTextField txfInterval { get; set; }
-
-		[Outlet]
-		MonoMac.AppKit.NSTextField txfNumber { get; set; }
-
-		[Outlet]
-		MonoMac.AppKit.NSTextField txfStroke { get; set; }
-
+		
 		void ReleaseDesignerOutlets ()
 		{
-			if (arrcSetList != null) {
-				arrcSetList.Dispose ();
-				arrcSetList = null;
-			}
-
-			if (txfCount != null) {
-				txfCount.Dispose ();
-				txfCount = null;
-			}
-
-			if (txfNumber != null) {
-				txfNumber.Dispose ();
-				txfNumber = null;
-			}
-
-			if (txfDistance != null) {
-				txfDistance.Dispose ();
-				txfDistance = null;
-			}
-
-			if (txfInterval != null) {
-				txfInterval.Dispose ();
-				txfInterval = null;
-			}
-
-			if (txfStroke != null) {
-				txfStroke.Dispose ();
-				txfStroke = null;
-			}
-
-			if (txfComment != null) {
-				txfComment.Dispose ();
-				txfComment = null;
-			}
-
 			if (btnNext != null) {
 				btnNext.Dispose ();
 				btnNext = null;
@@ -171,6 +115,7 @@ namespace AquaTempus
 	[Register ("MainWindowController")]
 	partial class MainWindowController
 	{
+		
 		void ReleaseDesignerOutlets ()
 		{
 		}
