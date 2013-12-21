@@ -68,8 +68,7 @@ namespace AquaTempus
 
 		public bool CreateFile (string path, string name, string content)
 		{
-			return false;
-			//return m_Filer.FileToString (path, name, content);
+			return m_Filer.CreateFile (name, path, content);
 		}
 	}
 	// FileManager

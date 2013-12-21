@@ -91,6 +91,8 @@
     <Compile Include="Singleton.cs" />
     <Compile Include="SetList.cs" />
     <Compile Include="MacGUI\TableViewHandler.cs" />
+    <Compile Include="SetRunner.cs" />
+    <Compile Include="Clock.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MacGUI\MainMenu.xib" />

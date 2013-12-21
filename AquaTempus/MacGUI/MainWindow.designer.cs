@@ -9,6 +9,15 @@ using System.CodeDom.Compiler;
 
 namespace AquaTempus
 {
+	[Register ("MainWindowController")]
+	partial class MainWindowController
+	{
+		
+		void ReleaseDesignerOutlets ()
+		{
+		}
+	}
+
 	[Register ("MainWindow")]
 	partial class MainWindow
 	{
@@ -109,15 +118,6 @@ namespace AquaTempus
 				tbvSetList.Dispose ();
 				tbvSetList = null;
 			}
-		}
-	}
-
-	[Register ("MainWindowController")]
-	partial class MainWindowController
-	{
-		
-		void ReleaseDesignerOutlets ()
-		{
 		}
 	}
 }

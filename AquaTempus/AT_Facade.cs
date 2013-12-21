@@ -51,6 +51,11 @@ namespace AquaTempus
 			m_FM.CloseFile ();
 		}
 
+		public void SaveCurrentSet (string name, string path)
+		{
+			m_FM.CreateFile (path, name, m_FM.CurrentFileToString ());
+		}
+
 		public string GetTokenList ()
 		{
 			m_ST.TokenizeString (m_FM.CurrentFileToString ());

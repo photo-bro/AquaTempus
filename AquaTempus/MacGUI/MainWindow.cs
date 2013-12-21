@@ -1,4 +1,5 @@
 using System;
+using System.Timers;
 using System.Collections.Generic;
 using System.Linq;
 using MonoMac.Foundation;
@@ -59,39 +60,21 @@ namespace AquaTempus
 			/// Start Button
 			/////
 			btnStart.Activated += (object sender, EventArgs e) => {
-				// Open file prompt
-				// Credit user: rjm
-				// http://forums.xamarin.com/discussion/3876/regression-in-nsopenpanel
-				NSOpenPanel openPanel = new NSOpenPanel ();
-				openPanel.BeginSheet (this, ((int result) => {
-					try {
-						if (openPanel.Url != null) {
-							var urlString = openPanel.Url.Path;
-
-							if (!string.IsNullOrEmpty (urlString)) {
-								m_at.OpenFile (System.IO.Path.GetFileName (urlString),
-									System.IO.Path.GetDirectoryName (urlString));
-								tbConsole.Value = urlString + " Opened" + Environment.NewLine;
-
-								tbConsole.Value += m_at.GetTokenList ();
-
-							}
-						}
-					} finally {
-						openPanel.Dispose ();
-					}
-				}));
-
+				Clock c = new Clock (1000);
+				c.Test ();
 			};
-
-
-
-
-
 
 		}
 
 		#endregion
+
+
+		public void ClockTick(object sender, ElapsedEventArgs e){
+			System.Console.WriteLine (e.SignalTime.Second.ToString ());
+			lbTimeRemain.StringValue = e.SignalTime.Second.ToString();
+		
+		}
+
 	}
 }
 

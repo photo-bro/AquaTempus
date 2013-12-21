@@ -72,7 +72,12 @@ namespace AquaTempus
 		public  string FileToString ()
 		{
 			try {
-				return m_sr.ReadToEnd ();
+				string s = m_sr.ReadToEnd();
+				// reset streamreader
+				// Credit: stackoverflow.com/questions/6467853/return-streamreader-to-beginning-when-his-basestream-has-bom
+				m_sr.BaseStream.Position = 0;
+				m_sr = new StreamReader(m_sr.BaseStream, m_sr.CurrentEncoding, false);
+				return s;
 			} catch (Exception e) {
 				Console.WriteLine (e.ToString ());
 				return "";

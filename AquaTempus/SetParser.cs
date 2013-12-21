@@ -27,7 +27,6 @@ namespace AquaTempus
 			} // get
 		}
 
-
 		LinkedList<Set> m_llSetList;
 		SetToken m_curToken;
 		List<SetToken> m_Tokens;
@@ -37,10 +36,11 @@ namespace AquaTempus
 		{
 			m_Tokens = tokens;
 			m_iTP = 0;
+			m_curToken = null;
 
 			m_llSetList = new LinkedList<Set> ();
 
-			MainParse ();
+			SetParse ();
 		}
 
 		/// <summary>
@@ -55,7 +55,7 @@ namespace AquaTempus
 		/// Digit   ::= 0|1| ... | 9
 		/// Mult	::= x|X
 		/// </summary>
-		private void MainParse ()
+		private void SetParse ()
 		{
 			int number, distance;
 			string interval, stroke, comment;
@@ -82,7 +82,8 @@ namespace AquaTempus
 				if (m_curToken.Type == SetTokenType.WORD) {
 					// Comments
 					int curLine = m_curToken.LineNumber;
-					for (; m_curToken != null && m_curToken.LineNumber != curLine + 1; Match (SetTokenType.WORD))
+					for (; m_curToken.Type != SetTokenType.EOF &&
+						m_curToken != null && m_curToken.LineNumber != curLine + 1; Match (SetTokenType.WORD))
 						comment += m_curToken.Value + " ";
 				} // if
 				m_llSetList.AddLast (new Set (number, distance, stroke, comment, interval));

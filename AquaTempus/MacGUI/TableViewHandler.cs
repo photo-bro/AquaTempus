@@ -63,7 +63,7 @@ namespace AquaTempus
 				break;
 			}
 			if (row + 1 > m_tableData [column].Count)
-				return new NSString ("empty");
+				return new NSString ("");
 			else
 				return new NSString (m_tableData [column] [row]);
 		}
