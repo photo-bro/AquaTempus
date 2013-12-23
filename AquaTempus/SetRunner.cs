@@ -4,6 +4,10 @@ using System.Timers;
 
 namespace AquaTempus
 {
+
+	public delegate void SetEndHandler (object source, EventArgs e);
+	public delegate void TickHandler (object source, ElapsedEventArgs e);
+
 	public class SetRunner
 	{
 		///// Singleton Stuff
@@ -110,9 +114,7 @@ namespace AquaTempus
 
 		private void SetTimeEvent (object source, ElapsedEventArgs e)
 		{
-			m_icurTime++;
-
-			if (m_icurTime == m_llnCurSet.Value.IntervalInt) {
+			if (m_icurTime++ == m_llnCurSet.Value.IntervalInt) {
 				// Set end event (to be listened by Window
 				SetEnded (this, e);
 					
@@ -122,12 +124,8 @@ namespace AquaTempus
 			}
 			// tick event 
 			Ticked (this, e);
-
-
 		}
 	}
 	// SetRunner class ^
-	public delegate void SetEndHandler (object source, ElapsedEventArgs e);
-	public delegate void TickHandler (object source, ElapsedEventArgs e);
 }
 

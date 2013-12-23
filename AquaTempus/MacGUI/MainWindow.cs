@@ -67,14 +67,16 @@ namespace AquaTempus
 				sr.Init (m_at.SetList ());
 
 				sr.Start ();
-				sr.SetEnded += (object source, ElapsedEventArgs ee) => {
-					System.Console.WriteLine ("Set Ended");
-				};
-				sr.Ticked += (object source, ElapsedEventArgs ee) => {
-					lbTimeRemain.StringValue = ee.SignalTime.Second.ToString ();
-					Console.WriteLine (ee.SignalTime.Second);
-				};
+
 			};
+
+			sr.SetEnded +=  new SetEndHandler((object source, EventArgs ee) => {
+				System.Console.WriteLine ("Set Ended");
+			});
+			sr.Ticked += new TickHandler((object source, ElapsedEventArgs ee) => {
+//				lbTimeRemain.StringValue = ee.SignalTime.Second.ToString ();
+				Console.WriteLine (ee.SignalTime.Second);
+			});
 
 		}
 
