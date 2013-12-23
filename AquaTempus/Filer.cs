@@ -69,7 +69,7 @@ namespace AquaTempus
 			return true;			
 		}
 
-		public  string FileToString ()
+		public string FileToString ()
 		{
 			try {
 				string s = m_sr.ReadToEnd();

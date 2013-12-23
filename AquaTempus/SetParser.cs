@@ -82,8 +82,8 @@ namespace AquaTempus
 				if (m_curToken.Type == SetTokenType.WORD) {
 					// Comments
 					int curLine = m_curToken.LineNumber;
-					for (; m_curToken.Type != SetTokenType.EOF &&
-						m_curToken != null && m_curToken.LineNumber != curLine + 1; Match (SetTokenType.WORD))
+					for (; m_curToken != null && m_curToken.Type != SetTokenType.EOF &&
+						m_curToken.LineNumber != curLine + 1; Match (SetTokenType.WORD))
 						comment += m_curToken.Value + " ";
 				} // if
 				m_llSetList.AddLast (new Set (number, distance, stroke, comment, interval));

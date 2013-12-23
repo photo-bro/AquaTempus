@@ -42,6 +42,7 @@ namespace AquaTempus
 		{
 
 			base.AwakeFromNib ();
+			SetRunner sr = SetRunner.Instance;
 
 
 			/////
@@ -60,8 +61,19 @@ namespace AquaTempus
 			/// Start Button
 			/////
 			btnStart.Activated += (object sender, EventArgs e) => {
-				Clock c = new Clock (1000);
-				c.Test ();
+
+				m_at.OpenFile();
+				// Parse file
+				sr.Init (m_at.SetList ());
+
+				sr.Start ();
+				sr.SetEnded += (object source, ElapsedEventArgs ee) => {
+					System.Console.WriteLine ("Set Ended");
+				};
+				sr.Ticked += (object source, ElapsedEventArgs ee) => {
+					lbTimeRemain.StringValue = ee.SignalTime.Second.ToString ();
+					Console.WriteLine (ee.SignalTime.Second);
+				};
 			};
 
 		}
@@ -69,11 +81,6 @@ namespace AquaTempus
 		#endregion
 
 
-		public void ClockTick(object sender, ElapsedEventArgs e){
-			System.Console.WriteLine (e.SignalTime.Second.ToString ());
-			lbTimeRemain.StringValue = e.SignalTime.Second.ToString();
-		
-		}
 
 	}
 }

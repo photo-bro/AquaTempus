@@ -57,6 +57,10 @@ namespace AquaTempus
 			return m_Filer.OpenFile(name, path);
 		}
 
+		public bool OpenFile(){
+			return m_Filer.OpenFile (LastFileName, LastFilePath);
+		}
+
 		public bool CloseFile ()
 		{
 			return m_Filer.CloseFile ();

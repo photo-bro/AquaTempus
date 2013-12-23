@@ -83,6 +83,14 @@ namespace AquaTempus
 			}
 			return SetTable;
 		}
+
+		public LinkedList<Set> SetList ()
+		{
+			m_ST.TokenizeString (m_FM.CurrentFileToString ());
+			m_SP.ParseToSetList (m_ST.TokenList ());
+
+			return m_SP.CurrentSetList;
+		}
 	}
 }
 

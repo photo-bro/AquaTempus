@@ -24,6 +24,11 @@ namespace AquaTempus
 			} // set 
 		}
 
+		public int IntervalInt {
+			get { return m_iInterval; }
+		}
+
+
 		private int ParseInterval (string interval)
 		{
 			if (interval.Length == 5) { // 00:00
