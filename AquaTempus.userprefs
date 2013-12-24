@@ -1,23 +1,18 @@
-﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="12/23/2013 10:40:24 PM">
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="12/24/2013 1:55:34 AM">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AquaTempus/SetRunner.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AquaTempus/MacGUI/MainWindow.cs">
     <Files>
-      <File FileName="AquaTempus/Clock.cs" Line="14" Column="38" />
-      <File FileName="AquaTempus/MacGUI/MainWindow.cs" Line="69" Column="1" />
-      <File FileName="AquaTempus/SetRunner.cs" Line="127" Column="4" />
-      <File FileName="AquaTempus/Filer.cs" Line="85" Column="1" />
+      <File FileName="AquaTempus/MacGUI/MainWindow.cs" Line="98" Column="22" />
+      <File FileName="AquaTempus/SetRunner.cs" Line="160" Column="3" />
       <File FileName="AquaTempus/AT_Facade.cs" Line="93" Column="1" />
-      <File FileName="AquaTempus/SetParser.cs" Line="44" Column="1" />
-      <File FileName="AquaTempus/FileManager.cs" Line="71" Column="1" />
-      <File FileName="AquaTempus/SetTokenizer.cs" Line="131" Column="1" />
+      <File FileName="AquaTempus/SetTokenizer.cs" Line="122" Column="1" />
+      <File FileName="AquaTempus/SetList.cs" Line="18" Column="81" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint hitAction="PrintExpression" traceExpression="{m_curToken}" file="/Users/jharm/Projects/AquaTempus/AquaTempus/SetParser.cs" line="64" column="1" />
       <Breakpoint file="/Users/jharm/Projects/AquaTempus/AquaTempus/MacGUI/TableViewHandler.cs" line="23" column="1" />
-      <Breakpoint file="/Users/jharm/Projects/AquaTempus/AquaTempus/MacGUI/MainWindow.cs" line="65" column="21" />
-      <Breakpoint file="/Users/jharm/Projects/AquaTempus/AquaTempus/SetTokenizer.cs" line="122" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -27,5 +22,8 @@
     <Watch file="AquaTempus/MacGUI/TableViewHandler.cs" line="65" offsetX="704" offsetY="869" expression="m_tableData" liveUpdate="False" />
     <Watch file="AquaTempus/AT_Facade.cs" line="79" offsetX="627" offsetY="892" expression="SetTable" liveUpdate="False" />
     <Watch file="AquaTempus/SetParser.cs" line="103" offsetX="368" offsetY="1530" expression="m_Tokens" liveUpdate="False" />
+    <Watch file="AquaTempus/SetRunner.cs" line="142" offsetX="708" offsetY="2033" expression="m_icurTime" liveUpdate="False" />
+    <Watch file="AquaTempus/SetRunner.cs" line="142" offsetX="630" offsetY="1996" expression="m_llnCurSet.Value.IntervalInt" liveUpdate="False" />
+    <Watch file="AquaTempus/MacGUI/MainWindow.cs" line="109" offsetX="484" offsetY="1620" expression="e.TimeRemaining" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

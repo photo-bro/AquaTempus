@@ -5,8 +5,31 @@ using System.Timers;
 namespace AquaTempus
 {
 
-	public delegate void SetEndHandler (object source, EventArgs e);
-	public delegate void TickHandler (object source, ElapsedEventArgs e);
+	public class TickArgs : EventArgs
+	{
+		int m_iRemainingTime;
+
+		public string TimeRemaining {
+			get { 
+				return string.Format ("{0}:{1}", (int)(m_iRemainingTime / 60), m_iRemainingTime % 60); }
+		}
+
+		public TickArgs(int TimeRemaining){
+			m_iRemainingTime = TimeRemaining;
+		}
+	}
+
+	public class SetEndArgs : EventArgs
+	{
+		public Set CurrentSet;
+
+		public SetEndArgs(Set currentSet){
+			CurrentSet = currentSet;
+		}
+	}
+
+	public delegate void SetEndHandler (object source, SetEndArgs e);
+	public delegate void TickHandler (object source, TickArgs e);
 
 	public class SetRunner
 	{
@@ -37,6 +60,7 @@ namespace AquaTempus
 		private bool m_bRun = false;
 		private Timer m_Tick;
 		private int m_icurTime;
+		private int m_iNum;
 
 		public event SetEndHandler SetEnded;
 		public event TickHandler Ticked;
@@ -114,16 +138,24 @@ namespace AquaTempus
 
 		private void SetTimeEvent (object source, ElapsedEventArgs e)
 		{
-			if (m_icurTime++ == m_llnCurSet.Value.IntervalInt) {
-				// Set end event (to be listened by Window
-				SetEnded (this, e);
-					
+			m_icurTime++;
+			// check if set interval has elapsed
+			if (m_icurTime >= m_llnCurSet.Value.IntervalInt) {
+				// Interval up, reset time
 				m_icurTime = 0;
-				m_llnCurSet = m_llnCurSet.Next;
-			
+				m_iNum++;
+				// Check if set over
+				if (m_iNum >= m_llnCurSet.Value.Number) {
+
+					// Set end event to be listened by Window
+					SetEnded (this, new SetEndArgs (m_llnCurSet.Value));
+
+					m_llnCurSet = m_llnCurSet.Next;
+				}
 			}
-			// tick event 
-			Ticked (this, e);
+
+			// tick event - to update countdown timer 
+			Ticked (this, new TickArgs(m_llnCurSet.Value.IntervalInt - m_icurTime));
 		}
 	}
 	// SetRunner class ^

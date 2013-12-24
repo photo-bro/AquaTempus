@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoMac.Foundation;
 using MonoMac.AppKit;
+using MonoMac.ObjCRuntime;
 
 namespace AquaTempus
 {
@@ -33,7 +34,6 @@ namespace AquaTempus
 
 		#endregion
 
-
 		#region WindowEvents
 
 		AT_Facade m_at = AT_Facade.Instance;
@@ -44,25 +44,38 @@ namespace AquaTempus
 			base.AwakeFromNib ();
 			SetRunner sr = SetRunner.Instance;
 
+			// credit 
+			// http://stackoverflow.com/questions/19795522/monomac-create-context-in-bacground-thread
+			// Disable UIKit thread checks for a couple of methods
+
+
+
 
 			/////
 			/// Pause Button
 			/////
 			btnPause.Activated += (object sender, EventArgs e) => {
 				lbStroke.StringValue = "btnPause.Activated";
-				m_at.OpenFile();
+				m_at.OpenFile ();
 
 				tbvSetList.DataSource = new TableViewHandler (m_at.SetListTable ());
 
 			};
 
+			/////
+			/// Stop Button
+			/////
+			btnStop.Activated += (object sender, EventArgs e) => {
+				sr.Stop ();
+
+			};
 
 			/////
 			/// Start Button
 			/////
 			btnStart.Activated += (object sender, EventArgs e) => {
 
-				m_at.OpenFile();
+				m_at.OpenFile ();
 				// Parse file
 				sr.Init (m_at.SetList ());
 
@@ -70,19 +83,38 @@ namespace AquaTempus
 
 			};
 
-			sr.SetEnded +=  new SetEndHandler((object source, EventArgs ee) => {
-				System.Console.WriteLine ("Set Ended");
-			});
-			sr.Ticked += new TickHandler((object source, ElapsedEventArgs ee) => {
-//				lbTimeRemain.StringValue = ee.SignalTime.Second.ToString ();
-				Console.WriteLine (ee.SignalTime.Second);
-			});
+			/////
+			/// Set Completed
+			///   Reset countdown clock
+			/////
+			sr.SetEnded += (object source, SetEndArgs e) => {
+				NSApplication.CheckForIllegalCrossThreadCalls = false;
+
+				lbStroke.StringValue = string.Format("{0}x{1} {2} on {3}-- Ended", e.CurrentSet.Number,
+					e.CurrentSet.Distance, e.CurrentSet.Stroke, e.CurrentSet.Interval);
+//				lbStroke.SizeToFit();
+//				Console.WriteLine(string.Format("{0}x{1} {2} on {3} -- Ended", e.CurrentSet.Number,
+//					e.CurrentSet.Distance, e.CurrentSet.Stroke, e.CurrentSet.Interval));
+				NSApplication.CheckForIllegalCrossThreadCalls = true;
+
+			};
+
+			/////
+			/// Tick (one second)
+			/// 
+			/////
+			sr.Ticked += (object source, TickArgs e) => {
+				NSApplication.CheckForIllegalCrossThreadCalls = false;
+
+				lbTimeRemain.StringValue = e.TimeRemaining;
+//				lbTimeRemain.SizeToFit();
+				Console.WriteLine(e.TimeRemaining);
+				NSApplication.CheckForIllegalCrossThreadCalls = true;
+			};
 
 		}
 
 		#endregion
-
-
 
 	}
 }
