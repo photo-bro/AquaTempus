@@ -26,11 +26,14 @@ namespace AquaTempus
 		}
 
 		public static string IntervalToString(int interval){
-			if (interval < 3659) // 60:59 -> 60min 59sec
-				return string.Format ("{0}:{1}", (int)(interval / 60), interval % 60);
-		
-		
-			return "";
+			// Credit: User: spurious.thoughts
+			// http://stackoverflow.com/questions/463642/what-is-the-best-way-to-convert-seconds-into-hourminutessecondsmilliseconds
+
+			TimeSpan t = TimeSpan.FromSeconds( interval );
+
+			return string.Format("{0:D2}:{1:D2}", 
+				t.Minutes, 
+				t.Seconds);
 		}
 
 		public static int ParseStringInterval (string interval)
