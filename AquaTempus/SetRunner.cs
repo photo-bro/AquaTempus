@@ -6,23 +6,6 @@ namespace AquaTempus
 {
 
 	/// <summary>
-	/// Data for Tick events, such as time remaining in current set
-	/// </summary>
-	public class TickArgs : EventArgs
-	{
-		int m_iRemainingTime;
-
-		public string TimeRemaining {
-			get { 
-				return Set.IntervalToString (m_iRemainingTime); }
-		}
-
-		public TickArgs(int TimeRemaining){
-			m_iRemainingTime = TimeRemaining;
-		}
-	}
-
-	/// <summary>
 	/// Data for SetEnd events, such as the current Set object
 	/// </summary>
 	public class SetEndArgs : EventArgs
@@ -36,7 +19,7 @@ namespace AquaTempus
 
 	// Event handlers for SetRunner events
 	public delegate void SetEndHandler (object source, SetEndArgs e);
-	public delegate void TickHandler (object source, TickArgs e);
+	public delegate void ResetCountHandler (object source, EventArgs e);
 
 	public class SetRunner
 	{
@@ -69,10 +52,14 @@ namespace AquaTempus
 		private int m_iNum;
 
 		public event SetEndHandler SetEnded;
-		public event TickHandler Ticked;
+		public event ResetCountHandler ResetCount;
 
 		public Set CurrentSet {
 			get{ return m_llnCurSet.Value; }
+		}
+
+		public int CurrentNum {
+			get { return m_iNum; }
 		}
 
 		public void Init (LinkedList<Set> SetList)
@@ -156,45 +143,36 @@ namespace AquaTempus
 
 		private void SetTimeEvent (object source, ElapsedEventArgs e)
 		{
-			// Create SetEnded event
-			SetEnded (this, new SetEndArgs (m_llnCurSet.Value));
+			m_iNum++;
 
-			// Point to next set
-			m_llnCurSet = m_llnCurSet.Next;
+			// Check if the current set is over
+			if (m_iNum >= m_llnCurSet.Value.Number) {
 
-			// check if end of set list
-			if (m_llnCurSet == null) {
-				m_SetTimer.Stop ();
-				return;
+				// reset set num count
+				m_iNum = 0;
+				// Create SetEnded event
+				SetEnded (this, new SetEndArgs (m_llnCurSet.Value));
+
+				// Point to next set
+				m_llnCurSet = m_llnCurSet.Next;
+
+				m_SetTimer.Interval = m_llnCurSet.Value.IntervalInt * 1000;
+
+				// check if end of set list
+				if (m_llnCurSet == null) {
+					m_SetTimer.Stop ();
+					return;
+				}
 			}
+
+			// Create event to reset countdown clock
+			ResetCount (this, new EventArgs ());
 
 			// Reset timer to new interval and hook event handler properly
 			m_SetTimer = new Timer (m_llnCurSet.Value.IntervalInt * 1000);
 			m_SetTimer.Elapsed += new ElapsedEventHandler (SetTimeEvent);
 
 		}
-
-
-
-//			m_icurTime++;
-//			// check if set interval has elapsed
-//			if (m_icurTime >= m_llnCurSet.Value.IntervalInt) {
-//				// Interval up, reset time
-//				m_icurTime = 0;
-//				m_iNum++;
-//				// Check if set over
-//				if (m_iNum >= m_llnCurSet.Value.Number) {
-//
-//					// Set end event to be listened by Window
-//					SetEnded (this, new SetEndArgs (m_llnCurSet.Value));
-//
-//					m_llnCurSet = m_llnCurSet.Next;
-//				}
-//			}
-//
-//			// tick event - to update countdown timer 
-//			Ticked (this, new TickArgs(m_llnCurSet.Value.IntervalInt - m_icurTime));
-//		}
 	}
 	// SetRunner class ^
 }

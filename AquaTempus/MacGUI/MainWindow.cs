@@ -118,15 +118,19 @@ namespace AquaTempus
 			};
 
 			/////
-			/// Tick (one second)
-			/// 
+			/// ResetCount
+			///  reset countdown clock
 			/////
-			sr.Ticked += (object source, TickArgs e) => {
+			sr.ResetCount += (object source, EventArgs e) => {
 				NSApplication.CheckForIllegalCrossThreadCalls = false;
-
-				lbTimeRemain.StringValue = e.TimeRemaining;
-				Console.WriteLine(e.TimeRemaining);
+				lbDistRemain.StringValue = string.Format("{0}x{1}"
+					, sr.CurrentSet.Number - sr.CurrentNum
+					, sr.CurrentSet.Distance);
 				NSApplication.CheckForIllegalCrossThreadCalls = true;
+
+				iSec = 0;
+				tickTimer = new Timer(1000);
+				tickTimer.Start();
 			};
 
 		}
