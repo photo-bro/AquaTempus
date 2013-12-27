@@ -14,13 +14,10 @@ namespace AquaTempus
 
 		public string Interval {
 			get {  
-				if (m_iInterval < 3659) // 60:59 -> 60min 59sec
-				return string.Format ("{0}:{1}", (int)(m_iInterval / 60), m_iInterval % 60);
-				else
-					return "";
+				return IntervalToString (m_iInterval);
 			} // get
 			set { 
-				m_iInterval = ParseInterval (value);
+				m_iInterval = ParseStringInterval (value);
 			} // set 
 		}
 
@@ -28,8 +25,15 @@ namespace AquaTempus
 			get { return m_iInterval; }
 		}
 
+		public static string IntervalToString(int interval){
+			if (interval < 3659) // 60:59 -> 60min 59sec
+				return string.Format ("{0}:{1}", (int)(interval / 60), interval % 60);
+		
+		
+			return "";
+		}
 
-		private int ParseInterval (string interval)
+		public static int ParseStringInterval (string interval)
 		{
 			if (interval.Length == 5) { // 00:00
 				int min = int.Parse (interval.Substring (0, 2));

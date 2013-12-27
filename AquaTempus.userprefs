@@ -1,12 +1,12 @@
-﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="12/24/2013 1:55:34 AM">
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="12/27/2013 6:12:31 PM">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="AquaTempus/MacGUI/MainWindow.cs">
     <Files>
       <File FileName="AquaTempus/MacGUI/MainWindow.cs" Line="98" Column="22" />
-      <File FileName="AquaTempus/SetRunner.cs" Line="160" Column="3" />
-      <File FileName="AquaTempus/AT_Facade.cs" Line="93" Column="1" />
-      <File FileName="AquaTempus/SetTokenizer.cs" Line="122" Column="1" />
-      <File FileName="AquaTempus/SetList.cs" Line="18" Column="81" />
+      <File FileName="AquaTempus/SetRunner.cs" Line="1" Column="1" />
+      <File FileName="AquaTempus/AT_Facade.cs" Line="1" Column="1" />
+      <File FileName="AquaTempus/SetTokenizer.cs" Line="1" Column="1" />
+      <File FileName="AquaTempus/SetList.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -40,11 +40,18 @@ namespace AquaTempus
 
 		public override void AwakeFromNib ()
 		{
+			///////
+			/// Glorified Event "Handler"
+			///////
+			/// 
 
 			base.AwakeFromNib ();
 			SetRunner sr = SetRunner.Instance;
 
-			// credit 
+			// for countdown timer
+			Timer tickTimer = new Timer (1000);
+			int iSec = 0;
+			// credit for disabling cross thread calls in NSApplication:
 			// http://stackoverflow.com/questions/19795522/monomac-create-context-in-bacground-thread
 			// Disable UIKit thread checks for a couple of methods
 
@@ -67,7 +74,7 @@ namespace AquaTempus
 			/////
 			btnStop.Activated += (object sender, EventArgs e) => {
 				sr.Stop ();
-
+				tickTimer.Stop();
 			};
 
 			/////
@@ -80,7 +87,17 @@ namespace AquaTempus
 				sr.Init (m_at.SetList ());
 
 				sr.Start ();
+				tickTimer.Start();
 
+			};
+
+
+			tickTimer.Elapsed += (object sender, ElapsedEventArgs e) => {
+				NSApplication.CheckForIllegalCrossThreadCalls = false;
+
+				lbTimeRemain.StringValue = Set.IntervalToString(sr.CurrentSet.IntervalInt - iSec++);
+
+				NSApplication.CheckForIllegalCrossThreadCalls = true;
 			};
 
 			/////
@@ -92,9 +109,10 @@ namespace AquaTempus
 
 				lbStroke.StringValue = string.Format("{0}x{1} {2} on {3}-- Ended", e.CurrentSet.Number,
 					e.CurrentSet.Distance, e.CurrentSet.Stroke, e.CurrentSet.Interval);
-//				lbStroke.SizeToFit();
-//				Console.WriteLine(string.Format("{0}x{1} {2} on {3} -- Ended", e.CurrentSet.Number,
-//					e.CurrentSet.Distance, e.CurrentSet.Stroke, e.CurrentSet.Interval));
+				Console.WriteLine(string.Format("{0}x{1} {2} on {3} -- Ended", e.CurrentSet.Number,
+					e.CurrentSet.Distance, e.CurrentSet.Stroke, e.CurrentSet.Interval));
+				iSec = 0;
+
 				NSApplication.CheckForIllegalCrossThreadCalls = true;
 
 			};
@@ -107,7 +125,6 @@ namespace AquaTempus
 				NSApplication.CheckForIllegalCrossThreadCalls = false;
 
 				lbTimeRemain.StringValue = e.TimeRemaining;
-//				lbTimeRemain.SizeToFit();
 				Console.WriteLine(e.TimeRemaining);
 				NSApplication.CheckForIllegalCrossThreadCalls = true;
 			};
