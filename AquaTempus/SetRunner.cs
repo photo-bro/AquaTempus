@@ -55,7 +55,7 @@ namespace AquaTempus
 		public event ResetCountHandler ResetCount;
 
 		public Set CurrentSet {
-			get{ return m_llnCurSet.Value; }
+			get{ return (m_llnCurSet == null) ? null : m_llnCurSet.Value; }
 		}
 
 		public int CurrentNum {
@@ -143,10 +143,8 @@ namespace AquaTempus
 
 		private void SetTimeEvent (object source, ElapsedEventArgs e)
 		{
-			m_iNum++;
-
 			// Check if the current set is over
-			if (m_iNum >= m_llnCurSet.Value.Number) {
+			if (++m_iNum >= m_llnCurSet.Value.Number) {
 
 				// reset set num count
 				m_iNum = 0;

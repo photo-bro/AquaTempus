@@ -55,7 +55,7 @@ namespace AquaTempus
 		public MonoMac.AppKit.NSTextView tbConsole { get; private set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSTableView tbvSetList { get; set; }
+		public MonoMac.AppKit.NSTableView tbvSetList { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

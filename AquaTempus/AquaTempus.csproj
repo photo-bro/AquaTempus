@@ -93,6 +93,7 @@
     <Compile Include="MacGUI\TableViewHandler.cs" />
     <Compile Include="SetRunner.cs" />
     <Compile Include="Clock.cs" />
+    <Compile Include="MacGUI\SharedWindowMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MacGUI\MainMenu.xib" />

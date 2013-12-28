@@ -43,6 +43,11 @@ namespace AquaTempus
 			m_FM.OpenFile (m_FM.LastFileName, m_FM.LastFilePath);
 		}
 
+		public bool FileOpen()
+		{
+			return m_FM.FileOpen ();
+		}
+
 		/// <summary>
 		/// Open last file
 		/// </summary>
@@ -73,21 +78,25 @@ namespace AquaTempus
 
 			int i = 0;
 			foreach (Set st in m_SP.CurrentSetList) {
-				SetTable [0].Add (i.ToString ());			
+				SetTable [0].Add ((++i).ToString ());			
 				SetTable [1].Add (st.Number.ToString ());	
 				SetTable [2].Add (st.Distance.ToString ());	
 				SetTable [3].Add (st.Interval);	
 				SetTable [4].Add (st.Stroke);	
 				SetTable [5].Add (st.Comment);	
-				++i;
 			}
 			return SetTable;
 		}
 
-		public LinkedList<Set> SetList ()
-		{
+		public void InitSet(){
 			m_ST.TokenizeString (m_FM.CurrentFileToString ());
 			m_SP.ParseToSetList (m_ST.TokenList ());
+		}
+
+		public LinkedList<Set> SetList ()
+		{
+			if (m_SP.CurrentSetList == null)
+				InitSet ();
 
 			return m_SP.CurrentSetList;
 		}

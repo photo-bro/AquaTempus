@@ -48,6 +48,10 @@ namespace AquaTempus
 			base.AwakeFromNib ();
 			SetRunner sr = SetRunner.Instance;
 
+			NSApplication.CheckForIllegalCrossThreadCalls = false;
+			updateGUI ();
+			NSApplication.CheckForIllegalCrossThreadCalls = true;;
+
 			// for countdown timer
 			Timer tickTimer = new Timer (1000);
 			int iSec = 0;
@@ -55,17 +59,14 @@ namespace AquaTempus
 			// http://stackoverflow.com/questions/19795522/monomac-create-context-in-bacground-thread
 			// Disable UIKit thread checks for a couple of methods
 
-
-
-
 			/////
 			/// Pause Button
 			/////
 			btnPause.Activated += (object sender, EventArgs e) => {
-				lbStroke.StringValue = "btnPause.Activated";
-				m_at.OpenFile ();
-
-				tbvSetList.DataSource = new TableViewHandler (m_at.SetListTable ());
+//				lbStroke.StringValue = "btnPause.Activated";
+//				m_at.OpenFile ();
+//
+//				tbvSetList.DataSource = new TableViewHandler (m_at.SetListTable ());
 
 			};
 
@@ -81,17 +82,20 @@ namespace AquaTempus
 			/// Start Button
 			/////
 			btnStart.Activated += (object sender, EventArgs e) => {
+				// Check if a file has been opened
+				if (!m_at.FileOpen())
+					return;
 
-				m_at.OpenFile ();
-				// Parse file
-				sr.Init (m_at.SetList ());
-
+				// start timers
 				sr.Start ();
 				tickTimer.Start();
 
 			};
 
-
+			/////
+			/// tick
+			/// countdown clock tick
+			/////
 			tickTimer.Elapsed += (object sender, ElapsedEventArgs e) => {
 				NSApplication.CheckForIllegalCrossThreadCalls = false;
 
@@ -126,6 +130,7 @@ namespace AquaTempus
 				lbDistRemain.StringValue = string.Format("{0}x{1}"
 					, sr.CurrentSet.Number - sr.CurrentNum
 					, sr.CurrentSet.Distance);
+				updateGUI();
 				NSApplication.CheckForIllegalCrossThreadCalls = true;
 
 				iSec = 0;
@@ -136,6 +141,25 @@ namespace AquaTempus
 		}
 
 		#endregion
+
+		void updateGUI(){
+			SetRunner sr = SetRunner.Instance;
+			Set curSet = sr.CurrentSet;
+
+			if (curSet == null) {
+				lbDistRemain.StringValue = "0x000";
+				lbNote.StringValue = "------------";
+				lbStats.StringValue = "------------";
+				lbStroke.StringValue = "------------";
+				lbTimeRemain.StringValue = "--:--";
+				return;
+			}
+
+			lbNote.StringValue = curSet.Comment;
+			lbStats.StringValue = "";
+			lbStroke.StringValue = curSet.Stroke;
+
+		}
 
 	}
 }
