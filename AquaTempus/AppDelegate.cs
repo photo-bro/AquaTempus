@@ -10,6 +10,7 @@ namespace AquaTempus
 	{
 		MainWindowController mainWindowController;
 		AT_Facade m_at = AT_Facade.Instance;
+		SetRunner m_sr = SetRunner.Instance;
 
 		public AppDelegate ()
 		{
@@ -26,50 +27,40 @@ namespace AquaTempus
 			/// SaveAs File Menu Item
 			/////
 			miSaveAs.Activated += (object sender, EventArgs e) => {
-				NSSavePanel savePanel = new NSSavePanel ();
-				savePanel.Begin (((int result) => {
-					try {
-						if (savePanel.Url != null) {
-							var urlString = savePanel.Url.Path;
-
-							if (!string.IsNullOrEmpty (urlString)) {
-								m_at.SaveCurrentSet (System.IO.Path.GetFileName (urlString),
-									System.IO.Path.GetDirectoryName (urlString));
-							} // string not null
-						} // url not null
-					} finally {
-						savePanel.Dispose ();
-					} // finally
-				}));
+				SharedWindowMethods.SaveCurrentSetFilePanel();
 			};
 
 			/////
 			/// Open File Menu Item
 			/////
 			miOpen.Activated += (object sender, EventArgs e) => {
-				// Open file prompt
+				// Call for openPanel
 				// Credit user: rjm
 				// http://forums.xamarin.com/discussion/3876/regression-in-nsopenpanel
 				NSOpenPanel openPanel = new NSOpenPanel ();
 				openPanel.Begin (((int result) => {
 					try {
 						if (openPanel.Url != null) {
-							var urlString = openPanel.Url.Path;
+							// get path
+							var file = openPanel.Url.Path;
 
-							if (!string.IsNullOrEmpty (urlString)) {
-								m_at.OpenFile (System.IO.Path.GetFileName (urlString),
-									System.IO.Path.GetDirectoryName (urlString));
-								winMain.tbConsole.Value = urlString + " Opened" + Environment.NewLine;
+							// open file
+							m_at.OpenFile(System.IO.Path.GetFileName(file), System.IO.Path.GetDirectoryName(file));
 
-								winMain.tbConsole.Value += m_at.GetTokenList ();
+							// parse open file
+							m_at.InitSet();
 
-							}
+							// init SetRunner
+							m_sr.Init(m_at.SetList());
+
+							// update table
+							winMain.tbvSetList.DataSource = new TableViewHandler(m_at.SetListTable());
+
 						}
 					} finally {
 						openPanel.Dispose ();
 					}
 				}));
-
 			};
 
 
