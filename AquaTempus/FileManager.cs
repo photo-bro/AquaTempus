@@ -12,7 +12,9 @@ namespace AquaTempus
 		private static FileManager c_fmInstance;
 		private static object c_fmLock = typeof(FileManager);
 
-		private FileManager() {}
+		private FileManager ()
+		{
+		}
 
 		public static FileManager Instance {
 			get {
@@ -22,17 +24,13 @@ namespace AquaTempus
 					return c_fmInstance;
 				} // lock
 			} // get
-		} // Instance
-
+		}
+		// Instance
 		private Filer m_Filer = Filer.Instance;
-
-
 		private string m_sProgramName = "AquaTempus";
 		private string m_sProgramVer = ".01";
-
 		private string m_sLastFileName = "TestSet.txt";
 		private string m_sLastFilePath = "//Users//jharm//Desktop";
-
 
 		public string LastFileName {
 			get { return m_sLastFileName; }
@@ -53,12 +51,19 @@ namespace AquaTempus
 			get { return m_sProgramVer; }
 		}
 
-		public bool OpenFile(string name, string path){
-			return m_Filer.OpenFile(name, path);
+		public bool OpenFile (string name, string path)
+		{
+			return m_Filer.OpenFile (name, path);
 		}
 
-		public bool OpenFile(){
+		public bool OpenFile ()
+		{
 			return m_Filer.OpenFile (LastFileName, LastFilePath);
+		}
+
+		public bool FileOpen ()
+		{
+			return m_Filer.FileOpen ();
 		}
 
 		public bool CloseFile ()
@@ -66,7 +71,8 @@ namespace AquaTempus
 			return m_Filer.CloseFile ();
 		}
 
-		public string CurrentFileToString(){
+		public string CurrentFileToString ()
+		{
 			return m_Filer.FileToString ();
 		}
 
@@ -76,5 +82,6 @@ namespace AquaTempus
 		}
 	}
 	// FileManager
-} // namespace AquaTempus
+}
+ // namespace AquaTempus
 
