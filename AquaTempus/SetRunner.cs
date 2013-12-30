@@ -4,7 +4,6 @@ using System.Timers;
 
 namespace AquaTempus
 {
-
 	/// <summary>
 	/// Data for SetEnd events, such as the current Set object
 	/// </summary>
@@ -12,15 +11,14 @@ namespace AquaTempus
 	{
 		public Set CurrentSet;
 
-		public SetEndArgs(Set currentSet){
+		public SetEndArgs (Set currentSet)
+		{
 			CurrentSet = currentSet;
 		}
 	}
-
 	// Event handlers for SetRunner events
 	public delegate void SetEndHandler (object source, SetEndArgs e);
 	public delegate void ResetCountHandler (object source, EventArgs e);
-
 	public class SetRunner
 	{
 		///// Singleton Stuff
@@ -112,6 +110,11 @@ namespace AquaTempus
 			// Check for running set
 			if (m_llSetList == null)
 				return;
+
+			// check if there is a next set
+			if (m_llnCurSet.Next == null)
+				return;
+
 			// Point to next set
 			m_llnCurSet = m_llnCurSet.Next;
 		}
@@ -121,19 +124,20 @@ namespace AquaTempus
 			// Check for running set
 			if (m_llSetList == null)
 				return;
+
+			// check if there is a previous set
+			if (m_llnCurSet.Previous == null)
+				return;
+
 			// Point to previous set
 			m_llnCurSet = m_llnCurSet.Previous;
 		}
 		// Reference:
 		// Delegates and Events
-		// http://msdn.microsoft.com/en-us/library/orm-9780596521066-01-17.aspx
-
-		//SetTimer st = SetTimer;
-
+		// http://msdn.microsoft.com/en-us/library/orm-9780596521066-01-17.asp
 		private void Run ()
 		{
-
-			m_SetTimer = new Timer (m_llnCurSet.Value.IntervalInt*1000);
+			m_SetTimer = new Timer (m_llnCurSet.Value.IntervalInt * 1000);
 			if (m_llnCurSet != null && m_bRun) {
 				m_SetTimer.Start ();
 
@@ -148,6 +152,7 @@ namespace AquaTempus
 
 				// reset set num count
 				m_iNum = 0;
+
 				// Create SetEnded event
 				SetEnded (this, new SetEndArgs (m_llnCurSet.Value));
 

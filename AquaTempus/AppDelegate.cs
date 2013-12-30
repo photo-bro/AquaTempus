@@ -61,6 +61,9 @@ namespace AquaTempus
 						openPanel.Dispose ();
 					}
 				}));
+
+				// refresh window gui
+				winMain.updateGUI();
 			};
 
 

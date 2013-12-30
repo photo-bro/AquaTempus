@@ -54,6 +54,11 @@ namespace AquaTempus
 			Comment = comment;
 			Interval = interval;
 		}
+
+		public override string ToString ()
+		{
+			return string.Format ("{0}x{1} {2} on {3} {4}", Number, Distance, Stroke, IntervalToString(IntervalInt), Comment);
+		}
 	}
 }
 

@@ -50,7 +50,8 @@ namespace AquaTempus
 
 			NSApplication.CheckForIllegalCrossThreadCalls = false;
 			updateGUI ();
-			NSApplication.CheckForIllegalCrossThreadCalls = true;;
+			NSApplication.CheckForIllegalCrossThreadCalls = true;
+			;
 
 			// for countdown timer
 			Timer tickTimer = new Timer (1000);
@@ -63,19 +64,32 @@ namespace AquaTempus
 			/// Pause Button
 			/////
 			btnPause.Activated += (object sender, EventArgs e) => {
-//				lbStroke.StringValue = "btnPause.Activated";
-//				m_at.OpenFile ();
-//
-//				tbvSetList.DataSource = new TableViewHandler (m_at.SetListTable ());
+				// Check if a file has been opened
+				if (!m_at.FileOpen ())
+					return;
 
+				// call for pause
+				sr.Pause ();
+				// stop ticktimer
+				tickTimer.Stop ();
 			};
 
 			/////
 			/// Stop Button
 			/////
 			btnStop.Activated += (object sender, EventArgs e) => {
+				// Check if a file has been opened
+				if (!m_at.FileOpen ())
+					return;
+
+				// call for stop (resets set pointer)
 				sr.Stop ();
-				tickTimer.Stop();
+
+				// stop and reset ticktimer
+				tickTimer.Stop ();
+				iSec = 0;
+				tickTimer = new Timer (1000);
+
 			};
 
 			/////
@@ -83,13 +97,55 @@ namespace AquaTempus
 			/////
 			btnStart.Activated += (object sender, EventArgs e) => {
 				// Check if a file has been opened
-				if (!m_at.FileOpen())
+				if (!m_at.FileOpen ())
 					return;
 
 				// start timers
 				sr.Start ();
-				tickTimer.Start();
+				tickTimer.Start ();
 
+				// update gui
+				updateGUI ();
+			};
+
+			/////
+			/// Next Button
+			/////
+			btnNext.Activated += (object sender, EventArgs e) => {
+				// Check if a file has been opened
+				if (!m_at.FileOpen ())
+					return;
+			
+				// call next set
+				sr.Next ();
+
+				// reset tickTimer
+				iSec = 0;
+				tickTimer = new Timer (1000);
+				tickTimer.Start ();
+
+				// update gui
+				updateGUI ();
+			};
+
+			/////
+			/// Previous Button
+			/////
+			btnPrev.Activated += (object sender, EventArgs e) => {
+				// Check if a file has been opened
+				if (!m_at.FileOpen ())
+					return;
+
+				// call previous set
+				sr.Previous ();
+
+				// reset tickTimer
+				iSec = 0;
+				tickTimer = new Timer (1000);
+				tickTimer.Start ();
+
+				// update gui
+				updateGUI ();
 			};
 
 			/////
@@ -99,7 +155,7 @@ namespace AquaTempus
 			tickTimer.Elapsed += (object sender, ElapsedEventArgs e) => {
 				NSApplication.CheckForIllegalCrossThreadCalls = false;
 
-				lbTimeRemain.StringValue = Set.IntervalToString(sr.CurrentSet.IntervalInt - iSec++);
+				lbTimeRemain.StringValue = Set.IntervalToString (sr.CurrentSet.IntervalInt - iSec++);
 
 				NSApplication.CheckForIllegalCrossThreadCalls = true;
 			};
@@ -111,9 +167,9 @@ namespace AquaTempus
 			sr.SetEnded += (object source, SetEndArgs e) => {
 				NSApplication.CheckForIllegalCrossThreadCalls = false;
 
-				lbStroke.StringValue = string.Format("{0}x{1} {2} on {3}-- Ended", e.CurrentSet.Number,
+				lbStroke.StringValue = string.Format ("{0}x{1} {2} on {3}-- Ended", e.CurrentSet.Number,
 					e.CurrentSet.Distance, e.CurrentSet.Stroke, e.CurrentSet.Interval);
-				Console.WriteLine(string.Format("{0}x{1} {2} on {3} -- Ended", e.CurrentSet.Number,
+				Console.WriteLine (string.Format ("{0}x{1} {2} on {3} -- Ended", e.CurrentSet.Number,
 					e.CurrentSet.Distance, e.CurrentSet.Stroke, e.CurrentSet.Interval));
 				iSec = 0;
 
@@ -127,26 +183,27 @@ namespace AquaTempus
 			/////
 			sr.ResetCount += (object source, EventArgs e) => {
 				NSApplication.CheckForIllegalCrossThreadCalls = false;
-				lbDistRemain.StringValue = string.Format("{0}x{1}"
-					, sr.CurrentSet.Number - sr.CurrentNum
-					, sr.CurrentSet.Distance);
-				updateGUI();
+			
+				updateGUI ();
+
 				NSApplication.CheckForIllegalCrossThreadCalls = true;
 
 				iSec = 0;
-				tickTimer = new Timer(1000);
-				tickTimer.Start();
+				tickTimer = new Timer (1000);
+				tickTimer.Start ();
 			};
 
 		}
 
 		#endregion
 
-		void updateGUI(){
+		public void updateGUI ()
+		{
 			SetRunner sr = SetRunner.Instance;
 			Set curSet = sr.CurrentSet;
 
 			if (curSet == null) {
+				// "blank" values
 				lbDistRemain.StringValue = "0x000";
 				lbNote.StringValue = "------------";
 				lbStats.StringValue = "------------";
@@ -155,12 +212,19 @@ namespace AquaTempus
 				return;
 			}
 
+			// labels to be updated
 			lbNote.StringValue = curSet.Comment;
-			lbStats.StringValue = "";
+			lbStats.StringValue = ""; // TODO
 			lbStroke.StringValue = curSet.Stroke;
+			lbDistRemain.StringValue = string.Format ("{0}x{1}"
+				, sr.CurrentSet.Number - sr.CurrentNum 
+				, sr.CurrentSet.Distance);
+
+			// highlight current set in tableview
+			tbvSetList.DeselectAll (this);
+			tbvSetList.SelectRow ((tbvSetList.DataSource as TableViewHandler).getSetRow (curSet), true);
 
 		}
-
 	}
 }
 

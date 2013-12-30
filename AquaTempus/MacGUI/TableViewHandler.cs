@@ -67,6 +67,19 @@ namespace AquaTempus
 			else
 				return new NSString (m_tableData [column] [row]);
 		}
+
+		public int getSetRow (Set setSelected)
+		{
+
+			for (int j = 0; j < m_tableData.Count; ++j) {
+				if (m_tableData [1] [j] == setSelected.Number.ToString()
+					&& m_tableData [2] [j] == setSelected.Distance.ToString()
+					&& m_tableData [3] [j] == setSelected.Interval)
+					return int.Parse (m_tableData [0] [j]) - 1;
+			}
+			return 0;
+
+		}
 	}
 }
 
