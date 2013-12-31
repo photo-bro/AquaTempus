@@ -70,6 +70,8 @@ namespace AquaTempus
 
 		public int getSetRow (Set setSelected)
 		{
+			if (setSelected == null)
+				return 0;
 
 			for (int j = 0; j < m_tableData.Count; ++j) {
 				if (m_tableData [1] [j] == setSelected.Number.ToString()
