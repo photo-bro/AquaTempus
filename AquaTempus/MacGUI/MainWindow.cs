@@ -37,13 +37,21 @@ namespace AquaTempus
 		#region WindowEvents
 
 		AT_Facade m_at = AT_Facade.Instance;
+		int m_iSec = 0;
 
 		public override void AwakeFromNib ()
 		{
 			///////
 			/// Glorified Event "Handler"
 			///////
-			/// 
+
+			// *************************** //
+			// TODO
+			//
+			// Make each button function properly
+			//  - Start / Stop conistent reseting of timers
+			//  - Pause (Doesnt reset tickTimer)
+			//  - Next / Prev (Reset timers properly)
 
 			base.AwakeFromNib ();
 			SetRunner sr = SetRunner.Instance;
@@ -51,11 +59,20 @@ namespace AquaTempus
 			NSApplication.CheckForIllegalCrossThreadCalls = false;
 			updateGUI ();
 			NSApplication.CheckForIllegalCrossThreadCalls = true;
-			;
+
+
+			// Component settings
+			tbvSetList.AllowsColumnSelection = false;
+
+			/////
+			/// TBV clicked
+			/////
+			tbvSetList.Activated += (object sender, EventArgs e) => {
+				updateTBV ();
+			};
 
 			// for countdown timer
 			Timer tickTimer = new Timer (1000);
-			int iSec = 0;
 			// credit for disabling cross thread calls in NSApplication:
 			// http://stackoverflow.com/questions/19795522/monomac-create-context-in-bacground-thread
 			// Disable UIKit thread checks for a couple of methods
@@ -87,7 +104,7 @@ namespace AquaTempus
 
 				// stop and reset ticktimer
 				tickTimer.Stop ();
-				iSec = 0;
+				m_iSec = 0;
 				tickTimer = new Timer (1000);
 
 			};
@@ -105,7 +122,10 @@ namespace AquaTempus
 				tickTimer.Start ();
 
 				// update gui
+				NSApplication.CheckForIllegalCrossThreadCalls = false;
 				updateGUI ();
+				NSApplication.CheckForIllegalCrossThreadCalls = true;
+
 			};
 
 			/////
@@ -115,17 +135,23 @@ namespace AquaTempus
 				// Check if a file has been opened
 				if (!m_at.FileOpen ())
 					return;
-			
+
+				// stop tickTimer
+				tickTimer.Stop();
+				tickTimer.Dispose();
+				m_iSec = 0;
+
 				// call next set
 				sr.Next ();
 
 				// reset tickTimer
-				iSec = 0;
 				tickTimer = new Timer (1000);
 				tickTimer.Start ();
 
 				// update gui
+				NSApplication.CheckForIllegalCrossThreadCalls = false;
 				updateGUI ();
+				NSApplication.CheckForIllegalCrossThreadCalls = true;
 			};
 
 			/////
@@ -136,16 +162,22 @@ namespace AquaTempus
 				if (!m_at.FileOpen ())
 					return;
 
+				// stop tickTimer
+				tickTimer.Stop();
+				tickTimer.Dispose();
+				m_iSec = 0;
+
 				// call previous set
 				sr.Previous ();
 
 				// reset tickTimer
-				iSec = 0;
 				tickTimer = new Timer (1000);
 				tickTimer.Start ();
 
 				// update gui
+				NSApplication.CheckForIllegalCrossThreadCalls = false;
 				updateGUI ();
+				NSApplication.CheckForIllegalCrossThreadCalls = true;
 			};
 
 			/////
@@ -155,9 +187,9 @@ namespace AquaTempus
 			tickTimer.Elapsed += (object sender, ElapsedEventArgs e) => {
 				NSApplication.CheckForIllegalCrossThreadCalls = false;
 
-				lbTimeRemain.StringValue = Set.IntervalToString (sr.CurrentSet.IntervalInt - iSec++);
-
+				updateCountDown();
 				NSApplication.CheckForIllegalCrossThreadCalls = true;
+
 			};
 
 			/////
@@ -165,16 +197,8 @@ namespace AquaTempus
 			///   Reset countdown clock
 			/////
 			sr.SetEnded += (object source, SetEndArgs e) => {
-				NSApplication.CheckForIllegalCrossThreadCalls = false;
-
-				lbStroke.StringValue = string.Format ("{0}x{1} {2} on {3}-- Ended", e.CurrentSet.Number,
-					e.CurrentSet.Distance, e.CurrentSet.Stroke, e.CurrentSet.Interval);
-				Console.WriteLine (string.Format ("{0}x{1} {2} on {3} -- Ended", e.CurrentSet.Number,
-					e.CurrentSet.Distance, e.CurrentSet.Stroke, e.CurrentSet.Interval));
-				iSec = 0;
-
-				NSApplication.CheckForIllegalCrossThreadCalls = true;
-
+				Console.WriteLine (string.Format ("{0}-- Ended", e.CurrentSet.ToString()));
+				m_iSec = 0;
 			};
 
 			/////
@@ -188,7 +212,7 @@ namespace AquaTempus
 
 				NSApplication.CheckForIllegalCrossThreadCalls = true;
 
-				iSec = 0;
+				m_iSec = 0;
 				tickTimer = new Timer (1000);
 				tickTimer.Start ();
 			};
@@ -220,10 +244,23 @@ namespace AquaTempus
 				, sr.CurrentSet.Number - sr.CurrentNum 
 				, sr.CurrentSet.Distance);
 
+			updateTBV ();
+			updateCountDown ();
+		}
+
+		public void updateTBV ()
+		{
 			// highlight current set in tableview
 			tbvSetList.DeselectAll (this);
-			tbvSetList.SelectRow ((tbvSetList.DataSource as TableViewHandler).getSetRow (curSet), true);
+			try {
+				tbvSetList.SelectRow ((tbvSetList.DataSource as TableViewHandler).getSetRow (SetRunner.Instance.CurrentSet), true);
+			} catch (Exception e) {
+				// do nothing
+			}
+		}
 
+		public void updateCountDown(){
+			lbTimeRemain.StringValue = Set.IntervalToString (SetRunner.Instance.CurrentSet.IntervalInt - m_iSec++);
 		}
 	}
 }
