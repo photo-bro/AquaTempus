@@ -42,7 +42,10 @@ namespace AquaTempus
 				} // lock
 			} // get
 		}
-
+		// ******************* //
+		// TODO
+		//
+		// timer adjusts interval when changing sets
 		private LinkedList<Set> m_llSetList;
 		private LinkedListNode<Set> m_llnCurSet;
 		private bool m_bRun = false;
@@ -117,6 +120,10 @@ namespace AquaTempus
 
 			// Point to next set
 			m_llnCurSet = m_llnCurSet.Next;
+
+			// Reset, init, and start timer
+			ResetAndStartSetTimer (m_llnCurSet.Value.IntervalInt * 1000);
+			m_iNum = 0;
 		}
 
 		public void Previous ()
@@ -131,6 +138,10 @@ namespace AquaTempus
 
 			// Point to previous set
 			m_llnCurSet = m_llnCurSet.Previous;
+
+			// Reset, init, and start timer	
+			ResetAndStartSetTimer (m_llnCurSet.Value.IntervalInt * 1000);
+			m_iNum = 0;
 		}
 		// Reference:
 		// Delegates and Events
@@ -153,13 +164,11 @@ namespace AquaTempus
 				// reset set num count
 				m_iNum = 0;
 
-				// Create SetEnded event
-				SetEnded (this, new SetEndArgs (m_llnCurSet.Value));
-
 				// Point to next set
 				m_llnCurSet = m_llnCurSet.Next;
 
-				m_SetTimer.Interval = m_llnCurSet.Value.IntervalInt * 1000;
+				// Create SetEnded event
+				SetEnded (this, new SetEndArgs (m_llnCurSet.Previous.Value));
 
 				// check if end of set list
 				if (m_llnCurSet == null) {
@@ -168,13 +177,18 @@ namespace AquaTempus
 				}
 			}
 
-			// Create event to reset countdown clock
-			ResetCount (this, new EventArgs ());
-
-			// Reset timer to new interval and hook event handler properly
-			m_SetTimer = new Timer (m_llnCurSet.Value.IntervalInt * 1000);
+			// adjust interval
+			ResetAndStartSetTimer (m_llnCurSet.Value.IntervalInt * 1000);
 			m_SetTimer.Elapsed += new ElapsedEventHandler (SetTimeEvent);
 
+			// Create event to reset countdown clock
+			ResetCount (this, new EventArgs ());
+		}
+
+		private void ResetAndStartSetTimer (int interval)
+		{
+			m_SetTimer = new Timer (interval);
+			m_SetTimer.Start ();
 		}
 	}
 	// SetRunner class ^
