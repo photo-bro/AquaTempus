@@ -2,11 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="AquaTempus/MacGUI/MainWindow.cs">
     <Files>
-      <File FileName="AquaTempus/MacGUI/MainWindow.cs" Line="130" Column="27" />
-      <File FileName="AquaTempus/AppDelegate.cs" Line="59" Column="8" />
+      <File FileName="AquaTempus/MacGUI/MainWindow.cs" Line="97" Column="9" />
+      <File FileName="AquaTempus/AppDelegate.cs" Line="51" Column="23" />
       <File FileName="AquaTempus/AT_Facade.cs" Line="49" Column="1" />
-      <File FileName="AquaTempus/SetRunner.cs" Line="60" Column="3" />
-      <File FileName="AquaTempus/MacGUI/SharedWindowMethods.cs" Line="15" Column="2" />
+      <File FileName="AquaTempus/SetRunner.cs" Line="169" Column="5" />
+      <File FileName="AquaTempus/MacGUI/SharedWindowMethods.cs" Line="1" Column="1" />
+      <File FileName="AquaTempus/MacGUI/TableViewHandler.cs" Line="72" Column="4" />
+      <File FileName="AquaTempus/SetList.cs" Line="52" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
