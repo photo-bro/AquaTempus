@@ -38,6 +38,9 @@ namespace AquaTempus
 			m_FM.OpenFile (name, path);
 		}
 
+		/// <summary>
+		/// Open last file
+		/// </summary>
 		public void OpenFile ()
 		{
 			m_FM.OpenFile (m_FM.LastFileName, m_FM.LastFilePath);
@@ -48,9 +51,6 @@ namespace AquaTempus
 			return m_FM.FileOpen ();
 		}
 
-		/// <summary>
-		/// Open last file
-		/// </summary>
 		public void CloseFile ()
 		{
 			m_FM.CloseFile ();
@@ -67,7 +67,7 @@ namespace AquaTempus
 			return m_ST.ToString ();
 		}
 
-		public List<List<string>> SetListTable ()
+		public List<List<string>> GetSetListTable ()
 		{
 			m_ST.TokenizeString (m_FM.CurrentFileToString ());
 			m_SP.ParseToSetList (m_ST.TokenList ());
@@ -93,7 +93,7 @@ namespace AquaTempus
 			m_SP.ParseToSetList (m_ST.TokenList ());
 		}
 
-		public LinkedList<Set> SetList ()
+		public LinkedList<Set> GetSetList ()
 		{
 			if (m_SP.CurrentSetList == null)
 				InitSet ();
