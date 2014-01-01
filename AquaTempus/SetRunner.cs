@@ -44,8 +44,8 @@ namespace AquaTempus
 		}
 		// ******************* //
 		// TODO
-		//
-		// timer adjusts interval when changing sets
+
+
 		private LinkedList<Set> m_llSetList;
 		private LinkedListNode<Set> m_llnCurSet;
 		private bool m_bRun = false;
@@ -74,6 +74,7 @@ namespace AquaTempus
 			// Check if there is a set to run
 			if (m_llSetList == null)
 				return;
+
 			// Check if not running, if so start running
 			if (!m_bRun) {
 				m_bRun = true;
@@ -167,12 +168,18 @@ namespace AquaTempus
 				// Point to next set
 				m_llnCurSet = m_llnCurSet.Next;
 
-				// Create SetEnded event
+				// Create SetEnded event (for set that just ended)
 				SetEnded (this, new SetEndArgs (m_llnCurSet.Previous.Value));
 
 				// check if end of set list
 				if (m_llnCurSet == null) {
+					// stop timer
 					m_SetTimer.Stop ();
+
+					// Create event to reset countdown clock
+					ResetCount (this, new EventArgs ());
+
+					// exit
 					return;
 				}
 			}
@@ -187,6 +194,7 @@ namespace AquaTempus
 
 		private void ResetAndStartSetTimer (int interval)
 		{
+			m_SetTimer.Dispose ();
 			m_SetTimer = new Timer (interval);
 			m_SetTimer.Start ();
 		}
