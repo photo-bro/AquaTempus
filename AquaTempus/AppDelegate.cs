@@ -51,10 +51,10 @@ namespace AquaTempus
 							m_at.InitSet();
 
 							// init SetRunner
-							m_sr.Init(m_at.SetList());
+							m_sr.Init(m_at.GetSetList());
 
 							// update table
-							winMain.tbvSetList.DataSource = new TableViewHandler(m_at.SetListTable());
+							winMain.tbvSetList.DataSource = new TableViewHandler(m_at.GetSetListTable());
 
 						}
 					} finally {
