@@ -198,6 +198,7 @@ namespace AquaTempus
 			/////
 			sr.SetEnded += (object source, SetEndArgs e) => {
 				Console.WriteLine (string.Format ("{0}-- Ended", e.CurrentSet.ToString()));
+
 				m_iSec = 0;
 			};
 
@@ -256,6 +257,7 @@ namespace AquaTempus
 				tbvSetList.SelectRow ((tbvSetList.DataSource as TableViewHandler).getSetRow (SetRunner.Instance.CurrentSet), true);
 			} catch (Exception e) {
 				// do nothing
+				Console.WriteLine (e.ToString ());
 			}
 		}
 
