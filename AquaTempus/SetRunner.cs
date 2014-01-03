@@ -128,7 +128,6 @@ namespace AquaTempus
 			// reset timer and setlist to head
 			m_bRun = false;
 			m_llnCurSet = m_llSetList.First;
-
 		}
 
 		/// <summary>

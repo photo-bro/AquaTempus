@@ -86,10 +86,17 @@ namespace AquaTempus
 					alertFileNotOpen ();
 					return;
 				}
+
 				// call for pause
 				sr.Pause ();
+
 				// stop ticktimer
 				tickTimer.Stop ();
+
+				// update gui
+				NSApplication.CheckForIllegalCrossThreadCalls = false;
+				updateGUI ();
+				NSApplication.CheckForIllegalCrossThreadCalls = true;
 			};
 
 			/////
@@ -109,6 +116,11 @@ namespace AquaTempus
 				tickTimer.Stop ();
 				m_iSec = 0;
 				tickTimer = new Timer (1000);
+
+				// update gui
+				NSApplication.CheckForIllegalCrossThreadCalls = false;
+				updateGUI ();
+				NSApplication.CheckForIllegalCrossThreadCalls = true;
 
 			};
 
