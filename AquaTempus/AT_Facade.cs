@@ -46,27 +46,57 @@ namespace AquaTempus
 			m_FM.OpenFile (m_FM.LastFileName, m_FM.LastFilePath);
 		}
 
-		public bool FileOpen()
+		/// <summary>
+		/// Check if a file is currently opened
+		/// </summary>
+		/// <returns><c>true</c>, if open filed was opened, <c>false</c> otherwise.</returns>
+		public bool FileOpen ()
 		{
 			return m_FM.FileOpen ();
 		}
 
+		/// <summary>
+		/// Closes the current file
+		/// </summary>
 		public void CloseFile ()
 		{
 			m_FM.CloseFile ();
 		}
 
+		/// <summary>
+		/// Saves current Set List at path / name
+		/// </summary>
+		/// <param name="name">Name.</param>
+		/// <param name="path">Path.</param>
 		public void SaveCurrentSet (string name, string path)
 		{
 			m_FM.CreateFile (path, name, m_FM.CurrentFileToString ());
 		}
 
+		/// <summary>
+		/// Tokenizes current file and returns as formatted string
+		/// </summary>
+		/// <returns>The token list.</returns>
 		public string GetTokenList ()
 		{
 			m_ST.TokenizeString (m_FM.CurrentFileToString ());
 			return m_ST.ToString ();
 		}
 
+		/// <summary>
+		/// Tokenizes and parses current file. Returns as a "table" in the following format:
+		/// List<List<string>>
+		/// Outer List is columns, 6 indexes
+		/// Index 0: Count
+		/// Index 1: Num
+		/// Index 2: Distance
+		/// Index 3: Interval
+		/// Index 4: Stroke
+		/// Index 5: Comment
+		/// 
+		/// Inner List is rows, the values
+		/// </summary>
+		/// <returns>The set list table. See summary for format</returns>
 		public List<List<string>> GetSetListTable ()
 		{
 			m_ST.TokenizeString (m_FM.CurrentFileToString ());
@@ -88,11 +118,20 @@ namespace AquaTempus
 			return SetTable;
 		}
 
-		public void InitSet(){
+		/// <summary>
+		/// Tokenize and Parse open file
+		/// </summary>
+		public void InitSet ()
+		{
 			m_ST.TokenizeString (m_FM.CurrentFileToString ());
 			m_SP.ParseToSetList (m_ST.TokenList ());
 		}
 
+		/// <summary>
+		/// Gets Set List for the current file. If file has not been initialized,
+		/// it calls InitSet.
+		/// </summary>
+		/// <returns>The set list.</returns>
 		public LinkedList<Set> GetSetList ()
 		{
 			if (m_SP.CurrentSetList == null)

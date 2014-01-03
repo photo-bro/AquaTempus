@@ -27,9 +27,6 @@ namespace AquaTempus
 		// Shared initialization code
 		void Initialize ()
 		{
-
-//			tbConsole.Value = "Hello and welcome to Aqua:Tempus ! ";
-		
 		}
 
 		#endregion
@@ -44,12 +41,15 @@ namespace AquaTempus
 			///////
 			/// Glorified Event "Handler"
 			///////
+			/// All outside calls from outside this class that update the GUI
+			/// need to be wrapped around the:
+			/// NSApplication.CheckForIllegalCrossThreadCalls = false/true;
+			/// for the updates to properly work. Nothing like a pain in the ass
 
 			// *************************** //
 			// TODO
 			//
-			// Make each button function properly
-			//  - Start / Stop conistent reseting of timers
+			// Make ea		ch button function properly
 			//  - Pause (Doesnt reset tickTimer)
 			//  - Next / Prev (Reset timers properly)
 
@@ -82,9 +82,10 @@ namespace AquaTempus
 			/////
 			btnPause.Activated += (object sender, EventArgs e) => {
 				// Check if a file has been opened
-				if (!m_at.FileOpen ())
+				if (!m_at.FileOpen ()) {	
+					alertFileNotOpen ();
 					return;
-
+				}
 				// call for pause
 				sr.Pause ();
 				// stop ticktimer
@@ -96,8 +97,10 @@ namespace AquaTempus
 			/////
 			btnStop.Activated += (object sender, EventArgs e) => {
 				// Check if a file has been opened
-				if (!m_at.FileOpen ())
+				if (!m_at.FileOpen ()) {
+					alertFileNotOpen ();
 					return;
+				}
 
 				// call for stop (resets set pointer)
 				sr.Stop ();
@@ -114,8 +117,10 @@ namespace AquaTempus
 			/////
 			btnStart.Activated += (object sender, EventArgs e) => {
 				// Check if a file has been opened
-				if (!m_at.FileOpen ())
+				if (!m_at.FileOpen ()) {
+					alertFileNotOpen ();
 					return;
+				}
 
 				// start timers
 				sr.Start ();
@@ -133,12 +138,14 @@ namespace AquaTempus
 			/////
 			btnNext.Activated += (object sender, EventArgs e) => {
 				// Check if a file has been opened
-				if (!m_at.FileOpen ())
+				if (!m_at.FileOpen ()) {
+					alertFileNotOpen ();
 					return;
+				}
 
 				// stop tickTimer
-				tickTimer.Stop();
-				tickTimer.Dispose();
+				tickTimer.Stop ();
+				tickTimer.Dispose ();
 				m_iSec = 0;
 
 				// call next set
@@ -159,12 +166,14 @@ namespace AquaTempus
 			/////
 			btnPrev.Activated += (object sender, EventArgs e) => {
 				// Check if a file has been opened
-				if (!m_at.FileOpen ())
+				if (!m_at.FileOpen ()) {
+					alertFileNotOpen ();
 					return;
+				}
 
 				// stop tickTimer
-				tickTimer.Stop();
-				tickTimer.Dispose();
+				tickTimer.Stop ();
+				tickTimer.Dispose ();
 				m_iSec = 0;
 
 				// call previous set
@@ -187,7 +196,7 @@ namespace AquaTempus
 			tickTimer.Elapsed += (object sender, ElapsedEventArgs e) => {
 				NSApplication.CheckForIllegalCrossThreadCalls = false;
 
-				updateCountDown();
+				updateCountDown ();
 				NSApplication.CheckForIllegalCrossThreadCalls = true;
 
 			};
@@ -197,7 +206,7 @@ namespace AquaTempus
 			///   Reset countdown clock
 			/////
 			sr.SetEnded += (object source, SetEndArgs e) => {
-				Console.WriteLine (string.Format ("{0}-- Ended", e.CurrentSet.ToString()));
+				Console.WriteLine (string.Format ("{0}-- Ended", e.CurrentSet.ToString ()));
 
 				m_iSec = 0;
 			};
@@ -218,10 +227,25 @@ namespace AquaTempus
 				tickTimer.Start ();
 			};
 
+			/////
+			/// Tab Selected
+			/////
+			tabvMain.DidSelect += (object sender, NSTabViewItemEventArgs e) => {
+				// load error log into console
+				tbConsole.Value = AQ_Exceptions.AQ_Exception_Log ();
+			};
+
 		}
 
 		#endregion
 
+		#region GUI_Updates
+
+		/// <summary>
+		/// Update GUI elements. Needs to be wrapped in:
+		/// NSApplication.CheckForIllegalCrossThreadCalls = false/true;
+		/// to work properly.
+		/// </summary>
 		public void updateGUI ()
 		{
 			SetRunner sr = SetRunner.Instance;
@@ -247,8 +271,14 @@ namespace AquaTempus
 
 			updateTBV ();
 			updateCountDown ();
+
 		}
 
+		/// <summary>
+		/// Update main TBV values. Needs to be wrapped in:
+		/// NSApplication.CheckForIllegalCrossThreadCalls = false/true;
+		/// to work properly. 
+		/// </summary>
 		public void updateTBV ()
 		{
 			// highlight current set in tableview
@@ -261,8 +291,28 @@ namespace AquaTempus
 			}
 		}
 
-		public void updateCountDown(){
+		/// <summary>
+		/// Update countdown clock. Needs to be wrapped in:
+		/// NSApplication.CheckForIllegalCrossThreadCalls = false/true;
+		/// to work properly.
+		/// </summary>
+		public void updateCountDown ()
+		{
 			lbTimeRemain.StringValue = Set.IntervalToString (SetRunner.Instance.CurrentSet.IntervalInt - m_iSec++);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Alert for FileNotOpen. Wrapper function of AQ_Exception class.
+		/// </summary>
+		private void alertFileNotOpen ()
+		{
+			AQ_Exceptions.AQ_Exception (AQ_EXCEPTION_CODE.FILE_NOT_OPEN
+				, "File not opened. Please open a set file"
+				, true
+				, this);
+			return;
 		}
 	}
 }

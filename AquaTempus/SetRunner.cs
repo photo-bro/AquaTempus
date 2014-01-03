@@ -55,20 +55,36 @@ namespace AquaTempus
 		public event SetEndHandler SetEnded;
 		public event ResetCountHandler ResetCount;
 
+		/// <summary>
+		/// Returns Set currently running
+		/// </summary>
+		/// <value>The current set.</value>
 		public Set CurrentSet {
 			get{ return (m_llnCurSet == null) ? null : m_llnCurSet.Value; }
 		}
 
+		/// <summary>
+		/// Returns the current individual set count
+		/// </summary>
+		/// <value>The current number.</value>
 		public int CurrentNum {
 			get { return m_iNum; }
 		}
 
+		/// <summary>
+		/// Initialize SetRunner with a new SetList. Can be used to reset SetRunner
+		/// to new SetList
+		/// </summary>
+		/// <param name="SetList">Set list.</param>
 		public void Init (LinkedList<Set> SetList)
 		{
 			m_llSetList = SetList;
 			m_llnCurSet = m_llSetList.First;
 		}
 
+		/// <summary>
+		/// Start SetRunner
+		/// </summary>
 		public void Start ()
 		{
 			// Check if there is a set to run
@@ -85,6 +101,9 @@ namespace AquaTempus
 				m_SetTimer.Start ();
 		}
 
+		/// <summary>
+		/// Pause SetRunner, "stops" timers, but does not reset
+		/// </summary>
 		public void Pause ()
 		{
 			// Check for running set
@@ -95,6 +114,9 @@ namespace AquaTempus
 				m_SetTimer.Stop ();
 		}
 
+		/// <summary>
+		/// Stop SetRunner, stops and resets timers and related objects
+		/// </summary>
 		public void Stop ()
 		{
 			// Check for running set
@@ -109,6 +131,9 @@ namespace AquaTempus
 
 		}
 
+		/// <summary>
+		/// Point set runner to next set in list. Resets timer to new interval
+		/// </summary>
 		public void Next ()
 		{
 			// Check for running set
@@ -127,6 +152,9 @@ namespace AquaTempus
 			m_iNum = 0;
 		}
 
+		/// <summary>
+		/// Point set runner to previous set in list. Resets timer to new interval
+		/// </summary>
 		public void Previous ()
 		{
 			// Check for running set
@@ -144,9 +172,13 @@ namespace AquaTempus
 			ResetAndStartSetTimer (m_llnCurSet.Value.IntervalInt * 1000);
 			m_iNum = 0;
 		}
+
 		// Reference:
 		// Delegates and Events
 		// http://msdn.microsoft.com/en-us/library/orm-9780596521066-01-17.asp
+		/// <summary>
+		/// Start interval timer and hook to event handler
+		/// </summary>
 		private void Run ()
 		{
 			m_SetTimer = new Timer (m_llnCurSet.Value.IntervalInt * 1000);
@@ -157,6 +189,13 @@ namespace AquaTempus
 			}
 		}
 
+		/// <summary>
+		/// Set interval end event. Checks if current set is finished and either points to next set
+		/// or increments set count. Resets timers. Creates a SetEnd event when the set is finished,
+		/// and creates a ResetCount event every time the current sub-Set is finished.
+		/// </summary>
+		/// <param name="source">Source.</param>
+		/// <param name="e">E.</param>
 		private void SetTimeEvent (object source, ElapsedEventArgs e)
 		{
 			// Check if the current set is over
@@ -192,9 +231,14 @@ namespace AquaTempus
 			ResetCount (this, new EventArgs ());
 		}
 
+		/// <summary>
+		/// Disposes, resets, and starts the set timer to interval (milliseconds)
+		/// </summary>
+		/// <param name="interval">Interval.</param>
 		private void ResetAndStartSetTimer (int interval)
 		{
-			m_SetTimer.Dispose ();
+			if (m_SetTimer != null)
+				m_SetTimer.Dispose ();
 			m_SetTimer = new Timer (interval);
 			m_SetTimer.Start ();
 		}

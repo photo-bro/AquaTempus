@@ -18,6 +18,17 @@ namespace AquaTempus
 
 		public override void FinishedLaunching (NSObject notification)
 		{
+			///////
+			/// Glorified Event "Handler"
+			///  for Menu Items (like File, edit and so forth)
+			///////
+			/// 
+
+			// *************************** //
+			// TODO
+			// - Reimplement SaveAs (command-S)
+
+
 			mainWindowController = new MainWindowController ();
 			mainWindowController.Window.MakeKeyAndOrderFront (this);
 
@@ -27,7 +38,7 @@ namespace AquaTempus
 			/// SaveAs File Menu Item
 			/////
 			miSaveAs.Activated += (object sender, EventArgs e) => {
-				SharedWindowMethods.SaveCurrentSetFilePanel();
+				SharedWindowMethods.SaveCurrentSetFilePanel ();
 			};
 
 			/////
@@ -45,16 +56,16 @@ namespace AquaTempus
 							var file = openPanel.Url.Path;
 
 							// open file
-							m_at.OpenFile(System.IO.Path.GetFileName(file), System.IO.Path.GetDirectoryName(file));
+							m_at.OpenFile (System.IO.Path.GetFileName (file), System.IO.Path.GetDirectoryName (file));
 
 							// parse open file
-							m_at.InitSet();
+							m_at.InitSet ();
 
 							// init SetRunner
-							m_sr.Init(m_at.GetSetList());
+							m_sr.Init (m_at.GetSetList ());
 
 							// update table
-							winMain.tbvSetList.DataSource = new TableViewHandler(m_at.GetSetListTable());
+							winMain.tbvSetList.DataSource = new TableViewHandler (m_at.GetSetListTable ());
 
 						}
 					} finally {
@@ -63,10 +74,8 @@ namespace AquaTempus
 				}));
 
 				// refresh window gui
-				winMain.updateGUI();
+				winMain.updateGUI ();
 			};
-
-
 		}
 	}
 }

@@ -45,6 +45,10 @@ namespace AquaTempus
 			return true;
 		}
 
+		/// <summary>
+		/// Files the open.
+		/// </summary>
+		/// <returns><c>true</c>, if open was filed, <c>false</c> otherwise.</returns>
 		public bool FileOpen ()
 		{
 			return !(m_sr == null);

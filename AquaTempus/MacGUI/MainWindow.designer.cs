@@ -9,15 +9,6 @@ using System.CodeDom.Compiler;
 
 namespace AquaTempus
 {
-	[Register ("MainWindowController")]
-	partial class MainWindowController
-	{
-		
-		void ReleaseDesignerOutlets ()
-		{
-		}
-	}
-
 	[Register ("MainWindow")]
 	partial class MainWindow
 	{
@@ -52,13 +43,21 @@ namespace AquaTempus
 		MonoMac.AppKit.NSTextField lbTimeRemain { get; set; }
 
 		[Outlet]
+		MonoMac.AppKit.NSTabView tabvMain { get; set; }
+
+		[Outlet]
 		public MonoMac.AppKit.NSTextView tbConsole { get; private set; }
 
 		[Outlet]
-		public MonoMac.AppKit.NSTableView tbvSetList { get; set; }
+		public MonoMac.AppKit.NSTableView tbvSetList { get; private set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (tabvMain != null) {
+				tabvMain.Dispose ();
+				tabvMain = null;
+			}
+
 			if (btnNext != null) {
 				btnNext.Dispose ();
 				btnNext = null;
@@ -118,6 +117,15 @@ namespace AquaTempus
 				tbvSetList.Dispose ();
 				tbvSetList = null;
 			}
+		}
+	}
+
+	[Register ("MainWindowController")]
+	partial class MainWindowController
+	{
+		
+		void ReleaseDesignerOutlets ()
+		{
 		}
 	}
 }

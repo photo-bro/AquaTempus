@@ -341,6 +341,7 @@
                 <outlet property="lbStats" destination="B0P-i4-0hz" id="3Pu-Jt-xpW"/>
                 <outlet property="lbStroke" destination="vBt-L5-9vY" id="aMJ-dm-spX"/>
                 <outlet property="lbTimeRemain" destination="ape-IH-D2e" id="P0g-Fp-x0A"/>
+                <outlet property="tabvMain" destination="93V-wP-vW2" id="BQj-lj-s8a"/>
                 <outlet property="tbConsole" destination="397-Wx-3PC" id="5qP-Ka-AxC"/>
                 <outlet property="tbvSetList" destination="bBB-fr-dZY" id="ozG-kG-6cf"/>
                 <outlet property="txfComment" destination="B0v-0z-qtd" id="mwC-0Z-3jF"/>
