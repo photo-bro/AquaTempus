@@ -114,7 +114,7 @@
                                             <rect key="frame" x="28" y="17" width="223" height="46"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Total Dist:" id="EcY-VH-QrL">
-                                                <font key="font" metaFont="system" size="34"/>
+                                                <font key="font" metaFont="system" size="16"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>

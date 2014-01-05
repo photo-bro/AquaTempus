@@ -275,7 +275,11 @@ namespace AquaTempus
 
 			// labels to be updated
 			lbNote.StringValue = curSet.Comment;
-			lbStats.StringValue = ""; // TODO
+			lbStats.StringValue = string.Format ("Total Distance Swam: {0}yds{1}Total Time Elapsed: {2}"
+				, sr.TotalDistanceSwam
+				, Environment.NewLine
+				, Set.IntervalToString (sr.TotalTimeElapsed));
+			lbStats.SizeToFit ();
 			lbStroke.StringValue = curSet.Stroke;
 			lbDistRemain.StringValue = string.Format ("{0}x{1}"
 				, sr.CurrentSet.Number - sr.CurrentNum 

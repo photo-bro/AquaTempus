@@ -16,6 +16,7 @@ namespace AquaTempus
 			CurrentSet = currentSet;
 		}
 	}
+	
 	// Event handlers for SetRunner events
 	public delegate void SetEndHandler (object source, SetEndArgs e);
 	public delegate void ResetCountHandler (object source, EventArgs e);
@@ -45,12 +46,17 @@ namespace AquaTempus
 		// ******************* //
 		// TODO
 
+		// SetRunner variables
+		private LinkedList<Set> m_llSetList; 			// Set List
+		private LinkedListNode<Set> m_llnCurSet;		// Current set
+		private bool m_bRun = false;					// hold whether Start been called
+		private Timer m_SetTimer; 						// Timer for each set
+		private int m_iNum;								// Current itertation of current set
 
-		private LinkedList<Set> m_llSetList;
-		private LinkedListNode<Set> m_llnCurSet;
-		private bool m_bRun = false;
-		private Timer m_SetTimer;
-		private int m_iNum;
+		// Statistic variables
+		private int m_iTotalDist;						// Total distance elapsed
+		private int m_iTotalTime;						// Total time elapsed
+
 
 		public event SetEndHandler SetEnded;
 		public event ResetCountHandler ResetCount;
@@ -69,6 +75,14 @@ namespace AquaTempus
 		/// <value>The current number.</value>
 		public int CurrentNum {
 			get { return m_iNum; }
+		}
+
+		public int TotalDistanceSwam {
+			get{ return m_iTotalDist; }
+		}
+
+		public int TotalTimeElapsed {
+			get { return m_iTotalTime; }
 		}
 
 		/// <summary>
@@ -197,6 +211,10 @@ namespace AquaTempus
 		/// <param name="e">E.</param>
 		private void SetTimeEvent (object source, ElapsedEventArgs e)
 		{
+			// Update statistics
+			m_iTotalDist += m_llnCurSet.Value.Distance;
+			m_iTotalTime += m_llnCurSet.Value.IntervalInt;
+
 			// Check if the current set is over
 			if (++m_iNum >= m_llnCurSet.Value.Number) {
 
