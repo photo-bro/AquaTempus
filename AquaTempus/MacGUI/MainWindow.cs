@@ -35,6 +35,7 @@ namespace AquaTempus
 
 		AT_Facade m_at = AT_Facade.Instance;
 		int m_iSec = 0;
+		bool m_bCountDescending = true;
 
 		public override void AwakeFromNib ()
 		{
@@ -44,12 +45,12 @@ namespace AquaTempus
 			/// All outside calls from outside this class that update the GUI
 			/// need to be wrapped around the:
 			/// NSApplication.CheckForIllegalCrossThreadCalls = false/true;
-			/// for the updates to properly work. Nothing like a pain in the ass
+			/// for the updates to properly work. 
 
 			// *************************** //
 			// TODO
 			//
-			// Make ea		ch button function properly
+			// Make each button function properly
 			//  - Pause (Doesnt reset tickTimer)
 			//  - Next / Prev (Reset timers properly)
 
@@ -201,6 +202,7 @@ namespace AquaTempus
 				NSApplication.CheckForIllegalCrossThreadCalls = true;
 			};
 
+
 			/////
 			/// tick
 			/// countdown clock tick
@@ -314,7 +316,11 @@ namespace AquaTempus
 		/// </summary>
 		public void updateCountDown ()
 		{
-			lbTimeRemain.StringValue = Set.IntervalToString (SetRunner.Instance.CurrentSet.IntervalInt - m_iSec++);
+			if (m_bCountDescending)
+				lbTimeRemain.StringValue = Set.IntervalToString (SetRunner.Instance.CurrentSet.IntervalInt - m_iSec++);
+			else
+				lbTimeRemain.StringValue = Set.IntervalToString (m_iSec++);
+
 		}
 
 		#endregion

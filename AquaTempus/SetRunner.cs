@@ -49,9 +49,9 @@ namespace AquaTempus
 		// SetRunner variables
 		private LinkedList<Set> m_llSetList; 			// Set List
 		private LinkedListNode<Set> m_llnCurSet;		// Current set
-		private bool m_bRun = false;					// hold whether Start been called
-		private Timer m_SetTimer; 						// Timer for each set
-		private int m_iNum;								// Current itertation of current set
+		private bool m_bRun = false;					// hold whether Start has been called
+		private Timer m_SetTimer; 						// Timer for each set object
+		private int m_iNum;								// Current iteration of current set
 
 		// Statistic variables
 		private int m_iTotalDist;						// Total distance elapsed
@@ -110,7 +110,7 @@ namespace AquaTempus
 				m_bRun = true;
 				Run ();
 			} 
-			// else if timer is constructed start
+			// else if timer is constructed, start
 			else if (m_SetTimer != null)
 				m_SetTimer.Start ();
 		}

@@ -336,6 +336,8 @@
                 <outlet property="btnPrev" destination="AaE-Cb-6fA" id="Kp2-nq-aYV"/>
                 <outlet property="btnStart" destination="L4m-93-xd8" id="glX-0L-AIk"/>
                 <outlet property="btnStop" destination="2eL-Te-W6U" id="TfX-FY-Bfe"/>
+                <outlet property="bxDistRemain" destination="jAD-Bd-Uvr" id="SWy-3S-Dh8"/>
+                <outlet property="bxTimeRemain" destination="nif-bT-khO" id="OJP-IR-amI"/>
                 <outlet property="lbDistRemain" destination="ctu-As-qlm" id="xkg-NX-w9B"/>
                 <outlet property="lbNote" destination="DTi-nt-pI0" id="yDh-Fo-kK6"/>
                 <outlet property="lbStats" destination="B0P-i4-0hz" id="3Pu-Jt-xpW"/>

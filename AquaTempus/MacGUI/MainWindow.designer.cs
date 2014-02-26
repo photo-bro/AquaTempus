@@ -28,6 +28,12 @@ namespace AquaTempus
 		MonoMac.AppKit.NSButton btnStop { get; set; }
 
 		[Outlet]
+		MonoMac.AppKit.NSBox bxDistRemain { get; set; }
+
+		[Outlet]
+		MonoMac.AppKit.NSBox bxTimeRemain { get; set; }
+
+		[Outlet]
 		MonoMac.AppKit.NSTextField lbDistRemain { get; set; }
 
 		[Outlet]
@@ -53,9 +59,14 @@ namespace AquaTempus
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (tabvMain != null) {
-				tabvMain.Dispose ();
-				tabvMain = null;
+			if (bxTimeRemain != null) {
+				bxTimeRemain.Dispose ();
+				bxTimeRemain = null;
+			}
+
+			if (bxDistRemain != null) {
+				bxDistRemain.Dispose ();
+				bxDistRemain = null;
 			}
 
 			if (btnNext != null) {
@@ -106,6 +117,11 @@ namespace AquaTempus
 			if (lbTimeRemain != null) {
 				lbTimeRemain.Dispose ();
 				lbTimeRemain = null;
+			}
+
+			if (tabvMain != null) {
+				tabvMain.Dispose ();
+				tabvMain = null;
 			}
 
 			if (tbConsole != null) {
